@@ -638,9 +638,9 @@
     <section class="hero reveal" aria-label="Donation Drive Hero">
       <div class="hero-inner">
         <div>
-          <div class="hero-badge">Give Back This Season</div>
+          <div class="hero-badge">Help Fill The Bins</div>
           <h2>Make a Difference in Our Community</h2>
-          <p>Every donation brings hope and nourishment to families in need. Join us in supporting Cook Children's Medical Center by contributing non-perishable food items.</p>
+          <p>Your contribution—big or small—helps bring comfort and joy to kids and families receiving care at Cook Children's Medical Center.</p>
           <a href="#donationForm" class="cta">
             <span>Donate Now</span>
             <svg style="width:20px;height:20px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
@@ -674,10 +674,17 @@
               <label for="classYear">Class / Affiliation <span class="required">*</span></label>
               <select id="classYear" required>
                 <option value="">Select...</option>
-                <option value="P1">P1 - Class of 2028</option>
-                <option value="P2">P2 - Class of 2027</option>
-                <option value="P3">P3 - Class of 2026</option>
-                <option value="Faculty/Staff">Faculty / Staff</option>
+                <optgroup label="Students">
+                  <option value="P1">P1 - Class of 2029</option>
+                  <option value="P2">P2 - Class of 2028</option>
+                  <option value="P3">P3 - Class of 2027</option>
+                  <option value="P4">P4 - Class of 2026</option>
+                </optgroup>
+                <optgroup label="Staff & External">
+                  <option value="Faculty/Staff">Faculty / Staff</option>
+                  <option value="Organization">Organization / Business</option>
+                  <option value="Community Donor">Community Donor</option>
+                </optgroup>
               </select>
             </div>
             <div>
@@ -769,33 +776,54 @@
 
       <!-- LIVE DASHBOARD -->
       <section class="card reveal" aria-label="Live Statistics Dashboard">
-        <h3><span class="emoji">📊</span> Live Impact Dashboard</h3>
+        <h3><span class="emoji">📊</span> See The Difference</h3>
         
         <!-- Class competition stats with relative progress -->
-        <div class="statgrid">
+        <div class="statgrid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+          <!-- Students -->
           <div class="stat">
             <div class="k">P1 Items</div>
             <div class="v counter" id="p1Count" data-count="0">0</div>
-            <div class="relbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="P1 relative progress"><span id="p1Rel"></span></div>
+            <div class="relbar"><span id="p1Rel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="p1RelPct">0%</span></div>
           </div>
           <div class="stat">
             <div class="k">P2 Items</div>
             <div class="v counter" id="p2Count" data-count="0">0</div>
-            <div class="relbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="P2 relative progress"><span id="p2Rel"></span></div>
+            <div class="relbar"><span id="p2Rel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="p2RelPct">0%</span></div>
           </div>
           <div class="stat">
             <div class="k">P3 Items</div>
             <div class="v counter" id="p3Count" data-count="0">0</div>
-            <div class="relbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="P3 relative progress"><span id="p3Rel"></span></div>
+            <div class="relbar"><span id="p3Rel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="p3RelPct">0%</span></div>
           </div>
           <div class="stat">
+            <div class="k">P4 Items</div>
+            <div class="v counter" id="p4Count" data-count="0">0</div>
+            <div class="relbar"><span id="p4Rel"></span></div>
+            <div class="rel-label"><span>Relative</span><span id="p4RelPct">0%</span></div>
+          </div>
+          
+          <!-- External Donors -->
+          <div class="stat">
             <div class="k">Faculty Items</div>
             <div class="v counter" id="fsCount" data-count="0">0</div>
-            <div class="relbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Faculty/Staff relative progress"><span id="fsRel"></span></div>
+            <div class="relbar"><span id="fsRel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="fsRelPct">0%</span></div>
+          </div>
+          <div class="stat">
+            <div class="k">Organization Items</div>
+            <div class="v counter" id="orgCount" data-count="0">0</div>
+            <div class="relbar"><span id="orgRel"></span></div>
+            <div class="rel-label"><span>Relative</span><span id="orgRelPct">0%</span></div>
+          </div>
+          <div class="stat">
+            <div class="k">Community Items</div>
+            <div class="v counter" id="commCount" data-count="0">0</div>
+            <div class="relbar"><span id="commRel"></span></div>
+            <div class="rel-label"><span>Relative</span><span id="commRelPct">0%</span></div>
           </div>
         </div>
 
@@ -810,7 +838,7 @@
             <div class="v counter" id="totalDonors" data-count="0">0</div>
           </div>
           <div class="stat">
-            <div class="k">Avg / Donor</div>
+            <div class="k">Average Donanation</div>
             <div class="v" id="avgPer">0</div>
           </div>
         </div>
@@ -915,7 +943,10 @@
         ['#p1Count', buckets['P1'], '#p1Rel', '#p1RelPct'],
         ['#p2Count', buckets['P2'], '#p2Rel', '#p2RelPct'],
         ['#p3Count', buckets['P3'], '#p3Rel', '#p3RelPct'],
-        ['#fsCount', buckets['Faculty/Staff'], '#fsRel', '#fsRelPct']
+        ['#p4Count', buckets['P4'], '#p4Rel', '#p4RelPct'],
+        ['#fsCount', buckets['Faculty/Staff'], '#fsRel', '#fsRelPct'],
+        ['#orgCount', buckets['Organization'], '#orgRel', '#orgRelPct'],
+        ['#commCount', buckets['Community Donor'], '#commRel', '#commRelPct']
       ];
 
       // Calculate relative max for progress bars (never capped)
