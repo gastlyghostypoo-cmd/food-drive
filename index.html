@@ -1065,9 +1065,7 @@
       });
       state.save();
       
-      // TODO: Send to Google Sheets via SCRIPT_URL
-      // (Uncomment when ready to go live)
-      /*
+      // save to sheets
       fetch(SCRIPT_URL, {
         method: 'POST',
         body: JSON.stringify({ name, email, classYear, itemType: finalItemType, qty, note })
@@ -1076,7 +1074,7 @@
       }).catch(err => {
         console.error('Error saving to Sheets:', err);
       });
-      */
+      
 
       // Reset form
       e.target.reset();
