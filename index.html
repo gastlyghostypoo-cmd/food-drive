@@ -1,393 +1,1128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharmacy School Food Drive</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UNT Health Fort Worth – Pharmacy Donation Drive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --unt-green:#00853E;
+      --unt-blue:#004E7E;
+      --unt-dark:#0A4D2A;
+      --unt-light:#E8F5EE;
+      --accent:#00B398;
+      --accent-bright:#00D4B0;
+      --ink:#0a0e0c;
+      --muted:#5e6b63;
+      --card:#ffffff;
+      --ring: rgba(0,0,0,.08);
+      --shadow: 0 10px 25px rgba(0,0,0,.12);
+      --shadow-strong: 0 20px 60px rgba(0,0,0,.18);
+      --success:#10b981;
+      --warning:#f59e0b;
+    }
+    
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    html{scroll-behavior:smooth}
+    
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--ink);
+      background: radial-gradient(1200px 700px at 15% -5%, var(--unt-green) 0%, #0d8548 30%, var(--unt-dark) 65%),
+                  linear-gradient(155deg, var(--unt-blue), #0a4a2d);
+      background-attachment:fixed;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .wrap{max-width:1180px;margin:0 auto;padding:32px 24px 64px}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
+    /* ---------- ANIMATIONS ---------- */
+    @keyframes fadeUp { 
+      from{opacity:0; transform: translateY(20px);} 
+      to{opacity:1; transform: translateY(0);} 
+    }
+    @keyframes glowPulse { 
+      0%,100%{ box-shadow:0 0 0 0 rgba(0,179,152,.0);} 
+      50%{ box-shadow:0 0 0 8px rgba(0,179,152,.12);} 
+    }
+    @keyframes shimmer { 
+      0%{background-position:-200% 0} 
+      100%{background-position:200% 0} 
+    }
+    @keyframes slideIn { 
+      from{opacity:0; transform:translateX(-12px)} 
+      to{opacity:1; transform:translateX(0)} 
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    @keyframes checkmark {
+      0% { stroke-dashoffset: 100; }
+      100% { stroke-dashoffset: 0; }
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .reveal{opacity:0; transform: translateY(20px);} 
+    .reveal.in{opacity:1; transform:none; animation: fadeUp .7s cubic-bezier(0.16, 1, 0.3, 1) both}
 
-        header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-        }
+    /* ---------- MASTHEAD ---------- */
+    .masthead{
+      background:rgba(255,255,255,.095);
+      border:1px solid rgba(255,255,255,.2);
+      backdrop-filter:saturate(160%) blur(12px);
+      -webkit-backdrop-filter:saturate(160%) blur(12px);
+      border-radius:20px;
+      padding:20px 24px;
+      box-shadow:0 16px 40px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.15);
+      display:flex;
+      align-items:center;
+      gap:20px;
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+    }
+    .masthead::before{
+      content:'';
+      position:absolute;
+      top:0;left:-100%;
+      width:100%;height:100%;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+    
+    .brandmark{
+      height:78px;
+      width:auto;
+      max-width:280px;
+      border-radius:12px;
+      box-shadow:0 8px 24px rgba(0,0,0,.2);
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      background:#fff;
+      padding:10px;
+      position:relative;
+      z-index:1;
+    }
+    .brandmark img{width:100%;height:auto;object-fit:contain}
+    
+    .masthead h1{
+      margin:0;
+      font-size:clamp(24px, 4vw, 36px);
+      line-height:1.15;
+      font-weight:900;
+      letter-spacing:-0.02em;
+      text-shadow:0 2px 8px rgba(0,0,0,.15);
+    }
+    .mast-sub{
+      opacity:.96;
+      font-size:15px;
+      font-weight:600;
+      margin-top:4px;
+      letter-spacing:0.01em;
+    }
+    .mast-actions{
+      margin-left:auto;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:var(--unt-light);
+      color:#0a3b24;
+      font-weight:700;
+      font-size:13px;
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow:0 2px 8px rgba(0,0,0,.1);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .chip:hover{
+      transform:translateY(-2px);
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
+    }
 
-        header img {
-            max-width: 150px;
-            margin-bottom: 20px;
-        }
+    /* ---------- HERO BANNER ---------- */
+    .hero{
+      position:relative;
+      margin-top:24px;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:var(--shadow-strong);
+    } 
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg,rgba(0,78,126,.6),rgba(0,133,62,.65)),
+        url('https://images.unsplash.com/photo-1605901309584-818e25960a8b?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    }
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      padding:56px 32px 60px;
+      color:#f7fffb;
+      display:flex;
+      align-items:center;
+      gap:24px;
+    }
+    .hero-badge{
+      display:inline-block;
+      background:rgba(255,255,255,.2);
+      border:1.5px solid rgba(255,255,255,.4);
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:13px;
+      margin-bottom:14px;
+      letter-spacing:0.03em;
+      text-transform:uppercase;
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
+    }
+    .hero h2{
+      margin:8px 0 12px;
+      font-size:clamp(28px, 5vw, 40px);
+      line-height:1.12;
+      font-weight:900;
+      letter-spacing:-0.02em;
+      text-shadow:0 3px 12px rgba(0,0,0,.2);
+    }
+    .hero p{
+      margin:0 0 20px;
+      max-width:62ch;
+      font-size:16px;
+      opacity:.97;
+      line-height:1.5;
+    }
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      padding:14px 20px;
+      border-radius:16px;
+      border:1.5px solid rgba(255,255,255,.4);
+      background:rgba(255,255,255,.15);
+      backdrop-filter:blur(8px);
+      color:#fff;
+      font-weight:700;
+      text-decoration:none;
+      font-size:15px;
+      transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow:0 4px 16px rgba(0,0,0,.15);
+    }
+    .cta:hover{
+      background:rgba(255,255,255,.25); 
+      transform: translateY(-2px) scale(1.02); 
+      box-shadow:0 12px 28px rgba(0,0,0,.2);
+      border-color:rgba(255,255,255,.5);
+    }
+    .cta:active{
+      transform:translateY(-1px) scale(1.01);
+    }
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
+    /* ---------- MAIN GRID ---------- */
+    .shell{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:28px;
+      margin-top:28px;
+    }
+    @media (max-width:1000px){
+      .shell{grid-template-columns:1fr}
+    }
 
-        .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
+    /* ---------- CARDS ---------- */
+    .card{
+      background:var(--card);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      padding:28px 26px;
+      border:1px solid rgba(0,0,0,.04);
+      transition:box-shadow .3s ease;
+    }
+    .card:hover{
+      box-shadow:0 16px 40px rgba(0,0,0,.15);
+    }
+    
+    .card h3{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:0 0 20px;
+      font-size:22px;
+      font-weight:800;
+      color:var(--unt-blue);
+      letter-spacing:-0.01em;
+    }
+    .card h3 .emoji{font-size:24px}
 
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
+    /* ---------- FORM ELEMENTS ---------- */
+    label{
+      display:block;
+      font-size:14px;
+      font-weight:600;
+      color:var(--ink);
+      margin:14px 0 8px;
+      letter-spacing:0.01em;
+    }
+    label .required{color:#dc2626;font-weight:700}
+    
+    input,select{
+      width:100%;
+      box-sizing:border-box;
+      border-radius:14px;
+      border:1.5px solid #e5e7eb;
+      padding:13px 15px;
+      font-size:15px;
+      font-family:inherit;
+      outline:none;
+      transition:all .2s cubic-bezier(0.16, 1, 0.3, 1);
+      background:#fafafa;
+      color:var(--ink);
+      font-weight:500;
+    }
+    input:hover,select:hover{
+      background:#fff;
+      border-color:#d1d5db;
+    }
+    input:focus,select:focus{
+      border-color:var(--accent);
+      background:#fff;
+      box-shadow:0 0 0 4px rgba(0,179,152,.12); 
+      transform: translateY(-1px);
+    }
+    input:disabled,select:disabled{
+      opacity:0.6;
+      cursor:not-allowed;
+    }
+    
+    /* Validation states */
+    input.error,select.error{
+      border-color:#dc2626;
+      background:#fef2f2;
+    }
+    input.success,select.success{
+      border-color:var(--success);
+      background:#f0fdf4;
+    }
+    
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width:650px){
+      .row{grid-template-columns:1fr}
+    }
 
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-        }
+    /* Conditional "Other" field with smooth animation */
+    .other-field{
+      max-height:0;
+      overflow:hidden;
+      opacity:0;
+      transition:all .35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .other-field.show{
+      max-height:100px;
+      opacity:1;
+      margin-top:4px;
+    }
 
-        .card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
+    /* ---------- BUTTONS ---------- */
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:20px;
+    }
+    
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 20px;
+      border-radius:16px;
+      border:none;
+      background:linear-gradient(135deg, var(--unt-green) 0%, var(--unt-blue) 100%);
+      color:#fff;
+      font-weight:700;
+      font-size:15px;
+      letter-spacing:0.02em;
+      cursor:pointer;
+      box-shadow:0 8px 20px rgba(0,133,62,.3);
+      transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
+      position:relative;
+      overflow:hidden;
+      font-family:inherit;
+    }
+    .btn::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg, transparent, rgba(255,255,255,.15));
+      opacity:0;
+      transition:opacity .2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-2px) scale(1.02); 
+      box-shadow:0 12px 28px rgba(0,133,62,.4);
+    }
+    .btn:hover::before{
+      opacity:1;
+    }
+    .btn:active{
+      transform: translateY(-1px) scale(1.01);
+    }
+    .btn:disabled{
+      opacity:0.6;
+      cursor:not-allowed;
+      transform:none !important;
+    }
+    
+    .btn.secondary{
+      background:#f3f4f6;
+      color:#374151;
+      border:1.5px solid #d1d5db;
+      box-shadow:0 4px 12px rgba(0,0,0,.08);
+    }
+    .btn.secondary:hover{
+      background:#e5e7eb;
+      box-shadow:0 6px 16px rgba(0,0,0,.12);
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    /* Success message with checkmark animation */
+    .notice{
+      margin:20px 0;
+      background:var(--success);
+      color:#fff;
+      border:none;
+      padding:16px 20px;
+      border-radius:16px;
+      font-size:15px;
+      font-weight:600;
+      display:none;
+      align-items:center;
+      gap:12px;
+      box-shadow:0 8px 24px rgba(16,185,129,.3);
+      animation: slideIn .4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .notice.show{
+      display:flex;
+    }
+    .notice svg{
+      width:24px;
+      height:24px;
+      flex-shrink:0;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #333;
-        }
+    /* ---------- DASHBOARD STATS ---------- */
+    .statgrid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+    @media (max-width:680px){
+      .statgrid{grid-template-columns:repeat(2,1fr)}
+    }
+    
+    .stat{
+      position:relative;
+      background:linear-gradient(180deg,#ffffff 0%,#f8faf9 100%);
+      border:1.5px solid #e8efe8;
+      border-radius:16px;
+      padding:18px;
+      overflow:hidden;
+      transition:all .3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .stat:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 20px rgba(0,0,0,.1);
+      border-color:#d0e0d5;
+    }
+    .stat:before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      bottom:0;
+      width:5px;
+      background:linear-gradient(180deg,var(--unt-green) 0%,var(--unt-blue) 100%);
+      opacity:.9;
+    }
+    .stat .k{
+      font-size:13px;
+      font-weight:600;
+      color:var(--muted);
+      margin-left:8px;
+      margin-bottom:8px;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+    }
+    .stat .v{
+      font-size:32px;
+      font-weight:900;
+      color:var(--unt-dark);
+      margin-left:8px;
+      letter-spacing:-0.02em;
+    }
+    .stat.updated{
+      animation: glowPulse 1s cubic-bezier(0.16, 1, 0.3, 1) 1;
+    }
 
-        input, select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
+    /* Progress bars with gradient fills */
+    .relbar{
+      height:12px;
+      background:#ecf5f0;
+      border:1.5px solid #dfeae4;
+      border-radius:999px;
+      overflow:hidden;
+      margin-top:10px;
+      position:relative;
+    }
+    .relbar span{
+      display:block;
+      height:100%;
+      width:0;
+      background:linear-gradient(90deg, var(--unt-green) 0%, var(--accent-bright) 100%);
+      transition:width .8s cubic-bezier(0.16, 1, 0.3, 1);
+      position:relative;
+      overflow:hidden;
+    }
+    .relbar span::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+      animation: shimmer 2s ease-in-out infinite;
+    }
+    .rel-label{
+      display:flex;
+      justify-content:space-between;
+      font-size:12px;
+      font-weight:600;
+      color:#415048;
+      margin-top:6px;
+    }
 
-        input:focus, select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
+    /* ---------- LISTS ---------- */
+    .lists{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:18px;
+      margin-top:14px;
+    }
+    
+    .list{
+      background:#fbfdfc;
+      border:1.5px solid #e6f0ea;
+      border-radius:16px;
+      overflow:hidden;
+    }
+    .list h4{
+      margin:0;
+      padding:16px 18px;
+      color:#0f3d26;
+      font-weight:700;
+      font-size:16px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:linear-gradient(135deg, #f0f9f4, #ffffff);
+      border-bottom:1.5px solid #e6f0ea;
+    }
+    .list h4 .emoji{font-size:18px}
+    
+    .list ul{
+      list-style:none;
+      margin:0;
+      padding:0;
+    }
+    .list li{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 18px;
+      border-bottom:1px solid #f0f4f2;
+      transition:background .2s ease;
+      animation: slideIn .3s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    }
+    .list li:nth-child(1){animation-delay:.05s}
+    .list li:nth-child(2){animation-delay:.1s}
+    .list li:nth-child(3){animation-delay:.15s}
+    .list li:nth-child(4){animation-delay:.2s}
+    .list li:nth-child(5){animation-delay:.25s}
+    .list li:last-child{border-bottom:none}
+    .list li:hover{
+      background:#f8fcfa;
+    }
+    .list li strong{
+      color:var(--unt-green);
+      font-weight:700;
+      font-size:16px;
+    }
+    .empty{
+      padding:20px 18px;
+      color:var(--muted);
+      text-align:center;
+      font-style:italic;
+    }
 
-        button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+    /* ---------- FOOTER ---------- */
+    footer{
+      margin-top:36px;
+      background:rgba(0,0,0,.12);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:18px;
+      padding:18px 20px;
+      color:#e8f5ee;
+      opacity:.96;
+      font-size:13.5px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      backdrop-filter:blur(8px);
+    }
+    .link{
+      color:#c9fff0;
+      text-decoration:underline;
+      font-weight:600;
+      transition:color .2s ease;
+    }
+    .link:hover{
+      color:#fff;
+    }
 
-        button:hover {
-            transform: translateY(-2px);
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            opacity: 0.9;
-            font-size: 0.9em;
-        }
-
-        .leaderboard {
-            margin-top: 20px;
-        }
-
-        .leaderboard h3 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .donor-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            background: #f5f5f5;
-            margin-bottom: 8px;
-            border-radius: 5px;
-        }
-
-        .recent-donations {
-            margin-top: 20px;
-            font-size: 0.9em;
-        }
-
-        .recent-item {
-            padding: 8px;
-            border-left: 3px solid #667eea;
-            margin-bottom: 5px;
-            background: #f9f9f9;
-        }
-
-        .success-message {
-            display: none;
-            background: #4caf50;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .success-message.show {
-            display: block;
-            animation: slideIn 0.5s;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateY(-20px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: #666;
-        }
-    </style>
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:768px){
+      .wrap{padding:20px 16px 48px}
+      .masthead{flex-direction:column;text-align:center}
+      .mast-actions{margin-left:0;justify-content:center}
+      .hero-inner{flex-direction:column;padding:40px 24px 44px}
+      .statgrid{grid-template-columns:1fr}
+      footer{flex-direction:column;text-align:center}
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <!-- Replace with actual school logo -->
-            <img src="school-logo.png" alt="School Logo" id="schoolLogo">
-            <h1>🥫 Pharmacy School Food Drive</h1>
-            <p class="subtitle">Help us feed our community!</p>
-        </header>
+  <div class="wrap">
+    <!-- MASTHEAD -->
+    <header class="masthead reveal">
+      <div class="brandmark" title="UNT Health Fort Worth College of Pharmacy Logo">
+        <img src="/mnt/data/UNT HEALTH IMAGE PHARM.png" alt="UNT Health Fort Worth College of Pharmacy Logo" />
+      </div>
+      <div>
+        <h1>Pharmacy Holiday Donation Drive</h1>
+        <div class="mast-sub">UNT Health Fort Worth • College of Pharmacy</div>
+      </div>
+      <div class="mast-actions">
+        <span class="chip" title="Student-led with faculty support">PSGA • Class of 2028</span>
+        <span class="chip" title="Benefiting Cook Children's Medical Center" style="background:#fff;color:#05304e;border:1px solid #d9e7f4;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Cook_Children%27s_Health_Care_System_logo.svg" alt="Cook Children's" style="height:14px;vertical-align:middle;opacity:.9"/>
+        </span>
+      </div>
+    </header>
 
-        <div class="main-content">
-            <!-- DONATION FORM -->
-            <div class="card">
-                <h2>Donate Now</h2>
-                <div class="success-message" id="successMessage">
-                    Thank you! Your donation has been recorded! 🎉
-                </div>
-                <form id="donationForm">
-                    <div class="form-group">
-                        <label for="name">Your Name *</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email *</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="classYear">Class Year *</label>
-                        <select id="classYear" required>
-                            <option value="">Select...</option>
-                            <option value="P1">P1</option>
-                            <option value="P2">P2</option>
-                            <option value="P3">P3</option>
-                            <option value="P4">P4</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="itemType">Item Type *</label>
-                        <select id="itemType" required>
-                            <option value="">Select...</option>
-                            <option value="Canned Soup">Canned Soup</option>
-                            <option value="Canned Vegetables">Canned Vegetables</option>
-                            <option value="Pasta">Pasta</option>
-                            <option value="Rice">Rice</option>
-                            <option value="Peanut Butter">Peanut Butter</option>
-                            <option value="Cereal">Cereal</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="quantity">Quantity *</label>
-                        <input type="number" id="quantity" min="1" required>
-                    </div>
-                    <button type="submit" id="submitBtn">Submit Donation</button>
-                </form>
-            </div>
-
-            <!-- LIVE STATS DASHBOARD -->
-            <div class="card">
-                <h2>Live Impact Dashboard</h2>
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <div class="stat-number" id="totalItems">0</div>
-                        <div class="stat-label">Total Items</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number" id="totalDonors">0</div>
-                        <div class="stat-label">Total Donors</div>
-                    </div>
-                </div>
-
-                <div class="leaderboard">
-                    <h3>🏆 Top Donors</h3>
-                    <div id="leaderboardList">
-                        <div class="loading">Loading...</div>
-                    </div>
-                </div>
-
-                <div class="recent-donations">
-                    <h3>Recent Donations</h3>
-                    <div id="recentList">
-                        <div class="loading">Loading...</div>
-                    </div>
-                </div>
-            </div>
+    <!-- HERO BANNER -->
+    <section class="hero reveal" aria-label="Donation Drive Hero">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-badge">Give Back This Season</div>
+          <h2>Make a Difference in Our Community</h2>
+          <p>Every donation brings hope and nourishment to families in need. Join us in supporting Cook Children's Medical Center by contributing non-perishable food items.</p>
+          <a href="#donationForm" class="cta">
+            <span>Donate Now</span>
+            <svg style="width:20px;height:20px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
         </div>
+      </div>
+    </section>
+
+    <!-- MAIN CONTENT GRID -->
+    <div class="shell">
+      <!-- DONATION FORM -->
+      <section class="card reveal" id="donationForm" aria-label="Donation Form">
+        <h3><span class="emoji">📦</span> Submit Your Donation</h3>
+        
+        <div class="notice" id="successNotice">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" stroke-dasharray="100" stroke-dashoffset="100" style="animation: checkmark 0.5s 0.2s ease-out forwards"/>
+          </svg>
+          <span>Thank you! Your donation has been recorded!</span>
+        </div>
+
+        <form id="theForm" novalidate>
+          <label for="name">Full Name <span class="required">*</span></label>
+          <input type="text" id="name" placeholder="John Doe" required autocomplete="name" />
+
+          <label for="email">Email Address <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="john.doe@example.com" required autocomplete="email" />
+
+          <div class="row">
+            <div>
+              <label for="classYear">Class / Affiliation <span class="required">*</span></label>
+              <select id="classYear" required>
+                <option value="">Select...</option>
+                <option value="P1">P1 - Class of 2028</option>
+                <option value="P2">P2 - Class of 2027</option>
+                <option value="P3">P3 - Class of 2026</option>
+                <option value="Faculty/Staff">Faculty / Staff</option>
+              </select>
+            </div>
+            <div>
+              <label for="qty">Quantity <span class="required">*</span></label>
+              <input type="number" id="qty" min="1" placeholder="5" required />
+            </div>
+          </div>
+
+          <label for="itemType">Item Category <span class="required">*</span></label>
+          <select id="itemType" required>
+            <option value="">Choose a category...</option>
+            <optgroup label="🥫 Canned Goods">
+              <option value="Canned Soup">Canned Soup</option>
+              <option value="Canned Vegetables">Canned Vegetables (Corn, Peas, Beans)</option>
+              <option value="Canned Fruit">Canned Fruit (Peaches, Pears, Pineapple)</option>
+              <option value="Canned Meat">Canned Meat (Tuna, Chicken, Spam)</option>
+              <option value="Canned Beans">Canned Beans (Black, Pinto, Kidney)</option>
+              <option value="Tomato Products">Tomato Sauce / Paste / Diced Tomatoes</option>
+            </optgroup>
+            <optgroup label="🍝 Dry Goods & Grains">
+              <option value="Pasta">Pasta (Spaghetti, Macaroni, Penne)</option>
+              <option value="Rice">Rice (White, Brown, Instant)</option>
+              <option value="Oatmeal">Oatmeal / Instant Oats</option>
+              <option value="Cereal">Breakfast Cereal</option>
+              <option value="Crackers">Crackers / Saltines</option>
+              <option value="Pancake Mix">Pancake / Waffle Mix</option>
+            </optgroup>
+            <optgroup label="🥜 Proteins & Spreads">
+              <option value="Peanut Butter">Peanut Butter</option>
+              <option value="Nut Butters">Other Nut Butters (Almond, Cashew)</option>
+              <option value="Dried Beans">Dried Beans / Lentils</option>
+              <option value="Nuts">Nuts / Trail Mix</option>
+            </optgroup>
+            <optgroup label="🍲 Meals & Sauces">
+              <option value="Mac & Cheese">Mac & Cheese Boxes</option>
+              <option value="Instant Meals">Instant Meals (Ramen, Cup Noodles)</option>
+              <option value="Pasta Sauce">Pasta Sauce / Marinara</option>
+              <option value="Soup Mixes">Dried Soup Mixes</option>
+              <option value="Boxed Meals">Boxed Meal Kits (Helper, etc.)</option>
+            </optgroup>
+            <optgroup label="🍪 Snacks & Treats">
+              <option value="Granola Bars">Granola Bars / Protein Bars</option>
+              <option value="Cookies">Cookies / Crackers</option>
+              <option value="Popcorn">Microwave Popcorn</option>
+              <option value="Dried Fruit">Dried Fruit / Fruit Snacks</option>
+            </optgroup>
+            <optgroup label="🥤 Beverages">
+              <option value="Juice Boxes">Juice Boxes / Pouches</option>
+              <option value="Powdered Drinks">Powdered Drink Mix</option>
+              <option value="Coffee/Tea">Coffee / Tea Bags</option>
+              <option value="Bottled Water">Bottled Water</option>
+            </optgroup>
+            <optgroup label="🍼 Baby & Kids">
+              <option value="Baby Food">Baby Food Pouches / Jars</option>
+              <option value="Baby Formula">Baby Formula</option>
+              <option value="Diapers">Diapers / Wipes</option>
+              <option value="Kids Snacks">Kids' Snacks (Goldfish, etc.)</option>
+            </optgroup>
+            <optgroup label="🧴 Personal Care & Other">
+              <option value="Toiletries">Toiletries (Soap, Shampoo, Toothpaste)</option>
+              <option value="Feminine Products">Feminine Hygiene Products</option>
+              <option value="Cleaning Supplies">Cleaning / Household Supplies</option>
+              <option value="Pet Food">Pet Food</option>
+            </optgroup>
+            <option value="Other">🔹 Other (Please Specify)</option>
+          </select>
+
+          <!-- Conditional "Other" field - shown only when "Other" is selected -->
+          <div class="other-field" id="otherField">
+            <label for="otherItem">Please specify the item <span class="required">*</span></label>
+            <input type="text" id="otherItem" placeholder="e.g., Baking supplies, condiments, etc." />
+          </div>
+
+          <label for="note">Optional Note / Message</label>
+          <input type="text" id="note" placeholder="Add a message of encouragement..." />
+
+          <div class="actions">
+            <button type="submit" class="btn">
+              <svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span>Submit Donation</span>
+            </button>
+            <button type="button" class="btn secondary" onclick="onReset()">
+              <svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              <span>Clear Demo Data</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- LIVE DASHBOARD -->
+      <section class="card reveal" aria-label="Live Statistics Dashboard">
+        <h3><span class="emoji">📊</span> Live Impact Dashboard</h3>
+        
+        <!-- Class competition stats with relative progress -->
+        <div class="statgrid">
+          <div class="stat">
+            <div class="k">P1 Items</div>
+            <div class="v counter" id="p1Count" data-count="0">0</div>
+            <div class="relbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="P1 relative progress"><span id="p1Rel"></span></div>
+            <div class="rel-label"><span>Relative</span><span id="p1RelPct">0%</span></div>
+          </div>
+          <div class="stat">
+            <div class="k">P2 Items</div>
+            <div class="v counter" id="p2Count" data-count="0">0</div>
+            <div class="relbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="P2 relative progress"><span id="p2Rel"></span></div>
+            <div class="rel-label"><span>Relative</span><span id="p2RelPct">0%</span></div>
+          </div>
+          <div class="stat">
+            <div class="k">P3 Items</div>
+            <div class="v counter" id="p3Count" data-count="0">0</div>
+            <div class="relbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="P3 relative progress"><span id="p3Rel"></span></div>
+            <div class="rel-label"><span>Relative</span><span id="p3RelPct">0%</span></div>
+          </div>
+          <div class="stat">
+            <div class="k">Faculty Items</div>
+            <div class="v counter" id="fsCount" data-count="0">0</div>
+            <div class="relbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Faculty/Staff relative progress"><span id="fsRel"></span></div>
+            <div class="rel-label"><span>Relative</span><span id="fsRelPct">0%</span></div>
+          </div>
+        </div>
+
+        <!-- Overall totals -->
+        <div class="statgrid" style="margin-top:14px">
+          <div class="stat" style="grid-column: span 2">
+            <div class="k">Total Items</div>
+            <div class="v counter" id="totalItems" data-count="0">0</div>
+          </div>
+          <div class="stat">
+            <div class="k">Total Donors</div>
+            <div class="v counter" id="totalDonors" data-count="0">0</div>
+          </div>
+          <div class="stat">
+            <div class="k">Avg / Donor</div>
+            <div class="v" id="avgPer">0</div>
+          </div>
+        </div>
+
+        <!-- Recent donations feed -->
+        <div class="lists">
+          <div class="list">
+            <h4><span class="emoji">⚡</span> Recent Donations</h4>
+            <ul id="recentDonations">
+              <li class="empty">Waiting for your first donation ✨</li>
+            </ul>
+          </div>
+        </div>
+      </section>
     </div>
 
-    <script>
-        // REPLACE THIS WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz0dpUbe5pPFUN_Qvqb-suHhycyrE9TyyJWwXerhYJOTkVVB7rEzlRe5WO4y0syQVk6Xg/exec';
+    <!-- FOOTER -->
+    <footer class="reveal">
+      <div>Questions? Email <a class="link" href="mailto:contact@unthealthfw.edu">contact@unthealthfw.edu</a></div>
+      <div>2025 UNT Health Fort Worth PSGA</div>
+    </footer>
+  </div>
 
-        // Load stats on page load
-        window.addEventListener('load', () => {
-            loadStats();
-            // Auto-refresh stats every 30 seconds
-            setInterval(loadStats, 30000);
-        });
+  <script>
+    // ================== CONFIG ==================
+    const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'; // ⚠️ REPLACE THIS
+    const KEY = 'unt_hsc_donations_v2';
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => document.querySelectorAll(sel);
 
-        // Handle form submission
-        document.getElementById('donationForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Submitting...';
+    // ================== STATE MANAGEMENT ==================
+    const state = {
+      donations: [],
+      load() { 
+        try { 
+          const raw = localStorage.getItem(KEY); 
+          if (raw) this.donations = JSON.parse(raw);
+        } catch(e) { 
+          console.warn('Failed to load state:', e);
+        } 
+      },
+      save() { 
+        localStorage.setItem(KEY, JSON.stringify(this.donations)); 
+      }
+    };
 
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                classYear: document.getElementById('classYear').value,
-                itemType: document.getElementById('itemType').value,
-                quantity: document.getElementById('quantity').value
-            };
+    // ================== UTILITIES ==================
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, m => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        '\'': '&#39;'
+      }[m]));
+    }
 
-            try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(formData)
-                });
+    function sum() {
+      const buckets = { P1: 0, P2: 0, P3: 0, 'Faculty/Staff': 0 };
+      const donors = new Set();
+      
+      for (const d of state.donations) {
+        const q = Number(d.qty) || 0;
+        if (buckets[d.classYear] !== undefined) buckets[d.classYear] += q;
+        if (d.email) donors.add(String(d.email).toLowerCase());
+      }
+      
+      const total = Object.values(buckets).reduce((a, b) => a + b, 0);
+      return { buckets, donors: donors.size, total };
+    }
 
-                const result = await response.json();
+    // Smooth counter animation using requestAnimationFrame
+    function animateCount(el, target) {
+      const start = Number(el.textContent) || 0;
+      const duration = 900; // ms
+      const t0 = performance.now();
+      
+      function step(t) {
+        const elapsed = t - t0;
+        const progress = Math.min(1, elapsed / duration);
+        // Ease-out cubic for smooth deceleration
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const val = Math.round(start + (target - start) * eased);
+        el.textContent = val;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
 
-                if (result.success) {
-                    // Show success message
-                    document.getElementById('successMessage').classList.add('show');
-                    setTimeout(() => {
-                        document.getElementById('successMessage').classList.remove('show');
-                    }, 3000);
+    function markUpdated(card) {
+      if (!card) return;
+      card.classList.remove('updated');
+      card.offsetHeight; // Force reflow
+      card.classList.add('updated');
+    }
 
-                    // Reset form
-                    document.getElementById('donationForm').reset();
+    // ================== RENDER DASHBOARD ==================
+    function render() {
+      const { buckets, donors, total } = sum();
+      
+      const map = [
+        ['#p1Count', buckets['P1'], '#p1Rel', '#p1RelPct'],
+        ['#p2Count', buckets['P2'], '#p2Rel', '#p2RelPct'],
+        ['#p3Count', buckets['P3'], '#p3Rel', '#p3RelPct'],
+        ['#fsCount', buckets['Faculty/Staff'], '#fsRel', '#fsRelPct']
+      ];
 
-                    // Update stats immediately
-                    if (result.stats) {
-                        updateStats(result.stats);
-                    }
-                }
-            } catch (error) {
-                alert('Error submitting donation. Please try again.');
-                console.error(error);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Donation';
-            }
-        });
+      // Calculate relative max for progress bars (never capped)
+      const maxVal = Math.max(1, ...Object.values(buckets));
 
-        // Load stats from Google Sheets
-        async function loadStats() {
-            try {
-                const response = await fetch(SCRIPT_URL);
-                const stats = await response.json();
-                updateStats(stats);
-            } catch (error) {
-                console.error('Error loading stats:', error);
-            }
+      for (const [countSel, val, barSel, pctSel] of map) {
+        const el = $(countSel);
+        const card = el.closest('.stat');
+        animateCount(el, val);
+        markUpdated(card);
+        
+        const pct = Math.round((val / maxVal) * 100);
+        const bar = $(barSel);
+        const pctEl = $(pctSel);
+        
+        if (bar) {
+          bar.style.width = pct + '%';
+          bar.parentElement.setAttribute('aria-valuenow', pct);
         }
-
-        // Update dashboard with new stats
-        function updateStats(stats) {
-            // Update total counters
-            document.getElementById('totalItems').textContent = stats.totalItems || 0;
-            document.getElementById('totalDonors').textContent = stats.totalDonors || 0;
-
-            // Update leaderboard
-            const leaderboardList = document.getElementById('leaderboardList');
-            if (stats.topDonors && stats.topDonors.length > 0) {
-                leaderboardList.innerHTML = stats.topDonors.map((donor, index) => `
-                    <div class="donor-item">
-                        <span>${index + 1}. ${donor.name}</span>
-                        <strong>${donor.count} items</strong>
-                    </div>
-                `).join('');
-            } else {
-                leaderboardList.innerHTML = '<p>No donations yet. Be the first!</p>';
-            }
-
-            // Update recent donations
-            const recentList = document.getElementById('recentList');
-            if (stats.recentDonations && stats.recentDonations.length > 0) {
-                recentList.innerHTML = stats.recentDonations.map(donation => `
-                    <div class="recent-item">
-                        <strong>${donation.name}</strong> donated ${donation.quantity} ${donation.item}
-                    </div>
-                `).join('');
-            } else {
-                recentList.innerHTML = '<p>No recent donations</p>';
-            }
+        if (pctEl) {
+          pctEl.textContent = pct + '%';
         }
-    </script>
+      }
+
+      // Update totals
+      animateCount($('#totalItems'), total);
+      markUpdated($('#totalItems').closest('.stat'));
+      animateCount($('#totalDonors'), donors);
+      markUpdated($('#totalDonors').closest('.stat'));
+      $('#avgPer').textContent = donors ? (total / donors).toFixed(1) : '0';
+
+      // Render recent donations
+      const ul = $('#recentDonations');
+      ul.innerHTML = '';
+      
+      if (state.donations.length === 0) {
+        ul.innerHTML = '<li class="empty">Waiting for your first donation ✨</li>';
+      } else {
+        const latest = [...state.donations]
+          .sort((a, b) => b.ts - a.ts)
+          .slice(0, 8);
+        
+        for (const d of latest) {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <span>${escapeHtml(d.name)} • ${escapeHtml(d.classYear)} • ${escapeHtml(d.itemType)}</span>
+            <strong>${Number(d.qty) || 0}</strong>
+          `;
+          ul.appendChild(li);
+        }
+      }
+    }
+
+    // ================== FORM HANDLING ==================
+    function showSuccess() {
+      const notice = $('#successNotice');
+      notice.classList.add('show');
+      setTimeout(() => {
+        notice.classList.remove('show');
+      }, 4000);
+    }
+
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function onSubmit(e) {
+      e.preventDefault();
+      
+      const name = $('#name').value.trim();
+      const email = $('#email').value.trim();
+      const classYear = $('#classYear').value;
+      const itemType = $('#itemType').value;
+      const qty = Number($('#qty').value);
+      const note = $('#note').value.trim();
+      
+      // Clear previous validation states
+      $$('input, select').forEach(el => {
+        el.classList.remove('error', 'success');
+      });
+
+      // Validation
+      let isValid = true;
+      
+      if (!name) {
+        $('#name').classList.add('error');
+        isValid = false;
+      } else {
+        $('#name').classList.add('success');
+      }
+      
+      if (!email || !validateEmail(email)) {
+        $('#email').classList.add('error');
+        isValid = false;
+      } else {
+        $('#email').classList.add('success');
+      }
+      
+      if (!classYear) {
+        $('#classYear').classList.add('error');
+        isValid = false;
+      } else {
+        $('#classYear').classList.add('success');
+      }
+      
+      if (!itemType) {
+        $('#itemType').classList.add('error');
+        isValid = false;
+      } else {
+        $('#itemType').classList.add('success');
+      }
+      
+      if (!qty || qty < 1) {
+        $('#qty').classList.add('error');
+        isValid = false;
+      } else {
+        $('#qty').classList.add('success');
+      }
+
+      // If "Other" is selected, require the otherItem field
+      let finalItemType = itemType;
+      if (itemType === 'Other') {
+        const otherItem = $('#otherItem').value.trim();
+        if (!otherItem) {
+          $('#otherItem').classList.add('error');
+          isValid = false;
+        } else {
+          $('#otherItem').classList.add('success');
+          finalItemType = `Other: ${otherItem}`;
+        }
+      }
+      
+      if (!isValid) {
+        alert('Please fill out all required fields correctly.');
+        return;
+      }
+
+      // Save locally (for demo)
+      state.donations.push({
+        name,
+        email,
+        classYear,
+        itemType: finalItemType,
+        qty,
+        note,
+        ts: Date.now()
+      });
+      state.save();
+      
+      // TODO: Send to Google Sheets via SCRIPT_URL
+      // (Uncomment when ready to go live)
+      /*
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ name, email, classYear, itemType: finalItemType, qty, note })
+      }).then(res => res.json()).then(data => {
+        console.log('Saved to Google Sheets:', data);
+      }).catch(err => {
+        console.error('Error saving to Sheets:', err);
+      });
+      */
+
+      // Reset form
+      e.target.reset();
+      $('#otherField').classList.remove('show');
+      showSuccess();
+      render();
+    }
+
+    function onReset() {
+      if (confirm('Clear all locally stored demo data? (This will not affect Google Sheets)')) {
+        state.donations = [];
+        state.save();
+        render();
+      }
+    }
+
+    // ================== CONDITIONAL FIELD LOGIC ==================
+    $('#itemType').addEventListener('change', function() {
+      const otherField = $('#otherField');
+      if (this.value === 'Other') {
+        otherField.classList.add('show');
+        $('#otherItem').setAttribute('required', 'required');
+      } else {
+        otherField.classList.remove('show');
+        $('#otherItem').removeAttribute('required');
+        $('#otherItem').value = '';
+        $('#otherItem').classList.remove('error', 'success');
+      }
+    });
+
+    // ================== INTERSECTION OBSERVER FOR REVEALS ==================
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          en.target.classList.add('in');
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    
+    $$('.reveal').forEach(el => io.observe(el));
+
+    // ================== INIT ==================
+    document.getElementById('theForm').addEventListener('submit', onSubmit);
+    state.load();
+    render();
+  </script>
 </body>
 </html>
