@@ -66,6 +66,10 @@
       0% { stroke-dashoffset: 100; }
       100% { stroke-dashoffset: 0; }
     }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
 
     .reveal{opacity:0; transform: translateY(20px);} 
     .reveal.in{opacity:1; transform:none; animation: fadeUp .7s cubic-bezier(0.16, 1, 0.3, 1) both}
@@ -149,6 +153,28 @@
     .chip:hover{
       transform:translateY(-2px);
       box-shadow:0 4px 12px rgba(0,0,0,.15);
+    }
+
+    /* Live indicator badge */
+    .live-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 12px;
+      border-radius:999px;
+      background:rgba(16,185,129,.15);
+      border:1.5px solid rgba(16,185,129,.4);
+      color:#0f7052;
+      font-weight:700;
+      font-size:12px;
+      backdrop-filter:blur(8px);
+    }
+    .live-dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#10b981;
+      animation: pulse 2s ease-in-out infinite;
     }
 
     /* ---------- HERO BANNER ---------- */
@@ -389,17 +415,6 @@
       cursor:not-allowed;
       transform:none !important;
     }
-    
-    .btn.secondary{
-      background:#f3f4f6;
-      color:#374151;
-      border:1.5px solid #d1d5db;
-      box-shadow:0 4px 12px rgba(0,0,0,.08);
-    }
-    .btn.secondary:hover{
-      background:#e5e7eb;
-      box-shadow:0 6px 16px rgba(0,0,0,.12);
-    }
 
     /* Success message with checkmark animation */
     .notice{
@@ -426,14 +441,24 @@
       flex-shrink:0;
     }
 
+    /* Loading spinner for submitting state */
+    .spinner{
+      width:16px;
+      height:16px;
+      border:2px solid rgba(255,255,255,.3);
+      border-top-color:#fff;
+      border-radius:50%;
+      animation:spin 0.6s linear infinite;
+    }
+    @keyframes spin{
+      to{transform:rotate(360deg)}
+    }
+
     /* ---------- DASHBOARD STATS ---------- */
     .statgrid{
       display:grid;
-      grid-template-columns:repeat(4,1fr);
+      grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
       gap:14px;
-    }
-    @media (max-width:680px){
-      .statgrid{grid-template-columns:repeat(2,1fr)}
     }
     
     .stat{
@@ -578,6 +603,15 @@
       font-style:italic;
     }
 
+    /* Last updated timestamp */
+    .last-updated{
+      font-size:12px;
+      color:var(--muted);
+      text-align:center;
+      margin-top:12px;
+      font-style:italic;
+    }
+
     /* ---------- FOOTER ---------- */
     footer{
       margin-top:36px;
@@ -623,13 +657,17 @@
         <img src="unt_banner_nobg.webp" alt="UNT Health Fort Worth College of Pharmacy Logo" />
       </div>
       <div>
-        <h1>Holiday Donation Drive</h1>
+        <h1>Pharmacy Holiday Donation Drive</h1>
         <div class="mast-sub">UNT Health Fort Worth • College of Pharmacy</div>
       </div>
       <div class="mast-actions">
+        <span class="live-badge">
+          <span class="live-dot"></span>
+          LIVE
+        </span>
         <span class="chip" title="Student-led with faculty support">PSGA • Class of 2028</span>
         <span class="chip" title="Benefiting Cook Children's Medical Center" style="background:#fff;color:#05304e;border:1px solid #d9e7f4;">
-          <img src="cook_logo2_whitebg.png" alt="Cook Children's" style="height:14px;vertical-align:middle;opacity:.9"/>
+          <img src="unt_logo1_whitebg.png" alt="Cook Children's" style="height:14px;vertical-align:middle;opacity:.9"/>
         </span>
       </div>
     </header>
@@ -641,7 +679,6 @@
           <div class="hero-badge">Help Fill The Bins</div>
           <h2>Make a Difference in Our Community</h2>
           <p>Your contribution—big or small—helps bring comfort and joy to kids and families receiving care at Cook Children's Medical Center.</p>
-          <div class="hero-badge">All donations benefit Cook Children's Medical Center in Fort Worth.</div>
           <a href="#donationForm" class="cta">
             <span>Donate Now</span>
             <svg style="width:20px;height:20px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
@@ -675,13 +712,13 @@
               <label for="classYear">Class / Affiliation <span class="required">*</span></label>
               <select id="classYear" required>
                 <option value="">Select...</option>
-                <optgroup label="Students">
+                <optgroup label="👨‍🎓 Students">
                   <option value="P1">P1 - Class of 2029</option>
                   <option value="P2">P2 - Class of 2028</option>
                   <option value="P3">P3 - Class of 2027</option>
                   <option value="P4">P4 - Class of 2026</option>
                 </optgroup>
-                <optgroup label="Staff & External">
+                <optgroup label="👔 Staff & External">
                   <option value="Faculty/Staff">Faculty / Staff</option>
                   <option value="Organization">Organization / Business</option>
                   <option value="Community Donor">Community Donor</option>
@@ -763,13 +800,9 @@
           <input type="text" id="note" placeholder="Add a message of encouragement..." />
 
           <div class="actions">
-            <button type="submit" class="btn">
+            <button type="submit" class="btn" id="submitBtn">
               <svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
               <span>Submit Donation</span>
-            </button>
-            <button type="button" class="btn secondary" onclick="onReset()">
-              <svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-              <span>Clear Demo Data</span>
             </button>
           </div>
         </form>
@@ -777,10 +810,10 @@
 
       <!-- LIVE DASHBOARD -->
       <section class="card reveal" aria-label="Live Statistics Dashboard">
-        <h3><span class="emoji">📊</span> See The Difference</h3>
+        <h3><span class="emoji">📊</span> Live Impact Dashboard</h3>
         
         <!-- Class competition stats with relative progress -->
-        <div class="statgrid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+        <div class="statgrid">
           <!-- Students -->
           <div class="stat">
             <div class="k">P1 Items</div>
@@ -829,8 +862,8 @@
         </div>
 
         <!-- Overall totals -->
-        <div class="statgrid" style="margin-top:14px">
-          <div class="stat" style="grid-column: span 2">
+        <div class="statgrid" style="margin-top:14px; grid-template-columns:repeat(3,1fr)">
+          <div class="stat" style="grid-column: span 1">
             <div class="k">Total Items</div>
             <div class="v counter" id="totalItems" data-count="0">0</div>
           </div>
@@ -839,7 +872,7 @@
             <div class="v counter" id="totalDonors" data-count="0">0</div>
           </div>
           <div class="stat">
-            <div class="k">Average Donanation</div>
+            <div class="k">Avg / Donor</div>
             <div class="v" id="avgPer">0</div>
           </div>
         </div>
@@ -849,10 +882,12 @@
           <div class="list">
             <h4><span class="emoji">⚡</span> Recent Donations</h4>
             <ul id="recentDonations">
-              <li class="empty">Waiting for your first donation ✨</li>
+              <li class="empty">Loading donations...</li>
             </ul>
           </div>
         </div>
+
+        <div class="last-updated" id="lastUpdated">Loading...</div>
       </section>
     </div>
 
@@ -865,26 +900,12 @@
 
   <script>
     // ================== CONFIG ==================
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz0dpUbe5pPFUN_Qvqb-suHhycyrE9TyyJWwXerhYJOTkVVB7rEzlRe5WO4y0syQVk6Xg/exec'; // ⚠️ REPLACE THIS
-    const KEY = 'unt_hsc_donations_v2';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz0dpUbe5pPFUN_Qvqb-suHhycyrE9TyyJWwXerhYJOTkVVB7rEzlRe5WO4y0syQVk6Xg/exec';
+    const REFRESH_INTERVAL = 30000; // Refresh dashboard every 30 seconds
     const $ = sel => document.querySelector(sel);
     const $$ = sel => document.querySelectorAll(sel);
 
-    // ================== STATE MANAGEMENT ==================
-    const state = {
-      donations: [],
-      load() { 
-        try { 
-          const raw = localStorage.getItem(KEY); 
-          if (raw) this.donations = JSON.parse(raw);
-        } catch(e) { 
-          console.warn('Failed to load state:', e);
-        } 
-      },
-      save() { 
-        localStorage.setItem(KEY, JSON.stringify(this.donations)); 
-      }
-    };
+    let refreshTimer = null;
 
     // ================== UTILITIES ==================
     function escapeHtml(s) {
@@ -895,28 +916,6 @@
         '"': '&quot;',
         '\'': '&#39;'
       }[m]));
-    }
-
-    function sum() {
-      const buckets = { 
-        P1: 0, 
-        P2: 0, 
-        P3: 0, 
-        P4: 0,
-        'Faculty/Staff': 0,
-        'Organization': 0,
-        'Community Donor': 0
-      };
-      const donors = new Set();
-      
-      for (const d of state.donations) {
-        const q = Number(d.qty) || 0;
-        if (buckets[d.classYear] !== undefined) buckets[d.classYear] += q;
-        if (d.email) donors.add(String(d.email).toLowerCase());
-      }
-      
-      const total = Object.values(buckets).reduce((a, b) => a + b, 0);
-      return { buckets, donors: donors.size, total };
     }
 
     // Smooth counter animation using requestAnimationFrame
@@ -944,25 +943,50 @@
       card.classList.add('updated');
     }
 
+    function updateTimestamp() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      });
+      $('#lastUpdated').textContent = `Last updated: ${timeStr}`;
+    }
+
+    // ================== LOAD STATS FROM GOOGLE SHEETS ==================
+    async function loadStats() {
+      try {
+        const response = await fetch(SCRIPT_URL);
+        const stats = await response.json();
+        renderStats(stats);
+        updateTimestamp();
+      } catch (error) {
+        console.error('Error loading stats:', error);
+        $('#lastUpdated').textContent = 'Error loading data. Retrying...';
+      }
+    }
+
     // ================== RENDER DASHBOARD ==================
-    function render() {
-      const { buckets, donors, total } = sum();
+    function renderStats(stats) {
+      const buckets = stats.classCounts || {};
       
       const map = [
-        ['#p1Count', buckets['P1'], '#p1Rel', '#p1RelPct'],
-        ['#p2Count', buckets['P2'], '#p2Rel', '#p2RelPct'],
-        ['#p3Count', buckets['P3'], '#p3Rel', '#p3RelPct'],
-        ['#p4Count', buckets['P4'], '#p4Rel', '#p4RelPct'],
-        ['#fsCount', buckets['Faculty/Staff'], '#fsRel', '#fsRelPct'],
-        ['#orgCount', buckets['Organization'], '#orgRel', '#orgRelPct'],
-        ['#commCount', buckets['Community Donor'], '#commRel', '#commRelPct']
+        ['#p1Count', buckets['P1'] || 0, '#p1Rel', '#p1RelPct'],
+        ['#p2Count', buckets['P2'] || 0, '#p2Rel', '#p2RelPct'],
+        ['#p3Count', buckets['P3'] || 0, '#p3Rel', '#p3RelPct'],
+        ['#p4Count', buckets['P4'] || 0, '#p4Rel', '#p4RelPct'],
+        ['#fsCount', buckets['Faculty/Staff'] || 0, '#fsRel', '#fsRelPct'],
+        ['#orgCount', buckets['Organization'] || 0, '#orgRel', '#orgRelPct'],
+        ['#commCount', buckets['Community Donor'] || 0, '#commRel', '#commRelPct']
       ];
 
-      // Calculate relative max for progress bars (never capped)
+      // Calculate relative max for progress bars
       const maxVal = Math.max(1, ...Object.values(buckets));
 
       for (const [countSel, val, barSel, pctSel] of map) {
         const el = $(countSel);
+        if (!el) continue;
+        
         const card = el.closest('.stat');
         animateCount(el, val);
         markUpdated(card);
@@ -981,28 +1005,26 @@
       }
 
       // Update totals
-      animateCount($('#totalItems'), total);
+      animateCount($('#totalItems'), stats.totalItems || 0);
       markUpdated($('#totalItems').closest('.stat'));
-      animateCount($('#totalDonors'), donors);
+      animateCount($('#totalDonors'), stats.totalDonors || 0);
       markUpdated($('#totalDonors').closest('.stat'));
-      $('#avgPer').textContent = donors ? (total / donors).toFixed(1) : '0';
+      
+      const avgPer = stats.totalDonors ? (stats.totalItems / stats.totalDonors).toFixed(1) : '0';
+      $('#avgPer').textContent = avgPer;
 
       // Render recent donations
       const ul = $('#recentDonations');
       ul.innerHTML = '';
       
-      if (state.donations.length === 0) {
-        ul.innerHTML = '<li class="empty">Waiting for your first donation ✨</li>';
+      if (!stats.recentDonations || stats.recentDonations.length === 0) {
+        ul.innerHTML = '<li class="empty">No donations yet. Be the first! ✨</li>';
       } else {
-        const latest = [...state.donations]
-          .sort((a, b) => b.ts - a.ts)
-          .slice(0, 8);
-        
-        for (const d of latest) {
+        for (const d of stats.recentDonations) {
           const li = document.createElement('li');
           li.innerHTML = `
-            <span>${escapeHtml(d.name)} • ${escapeHtml(d.classYear)} • ${escapeHtml(d.itemType)}</span>
-            <strong>${Number(d.qty) || 0}</strong>
+            <span>${escapeHtml(d.name)} • ${escapeHtml(d.item)}</span>
+            <strong>${Number(d.quantity) || 0}</strong>
           `;
           ul.appendChild(li);
         }
@@ -1022,9 +1044,10 @@
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    function onSubmit(e) {
+    async function onSubmit(e) {
       e.preventDefault();
       
+      const submitBtn = $('#submitBtn');
       const name = $('#name').value.trim();
       const email = $('#email').value.trim();
       const classYear = $('#classYear').value;
@@ -1093,41 +1116,48 @@
         return;
       }
 
-      // Save locally (for demo)
-      state.donations.push({
-        name,
-        email,
-        classYear,
-        itemType: finalItemType,
-        qty,
-        note,
-        ts: Date.now()
-      });
-      state.save();
-      
-      // save to sheets
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify({ name, email, classYear, itemType: finalItemType, qty, note })
-      }).then(res => res.json()).then(data => {
-        console.log('Saved to Google Sheets:', data);
-      }).catch(err => {
-        console.error('Error saving to Sheets:', err);
-      });
-      
+      // Disable button and show loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<div class="spinner"></div><span>Submitting...</span>';
 
-      // Reset form
-      e.target.reset();
-      $('#otherField').classList.remove('show');
-      showSuccess();
-      render();
-    }
-
-    function onReset() {
-      if (confirm('Clear all locally stored demo data? (This will not affect Google Sheets)')) {
-        state.donations = [];
-        state.save();
-        render();
+      try {
+        // Submit to Google Sheets
+        const response = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          body: JSON.stringify({ name, email, classYear, itemType: finalItemType, qty, note })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Reset form
+          e.target.reset();
+          $('#otherField').classList.remove('show');
+          showSuccess();
+          
+          // Immediately update dashboard with returned stats
+          if (result.stats) {
+            renderStats(result.stats);
+            updateTimestamp();
+          }
+          
+          // Also trigger a fresh load to be sure
+          setTimeout(loadStats, 1000);
+        } else {
+          throw new Error(result.error || 'Submission failed');
+        }
+      } catch (error) {
+        console.error('Error submitting donation:', error);
+        alert('There was an error submitting your donation. Please try again.');
+      } finally {
+        // Re-enable button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `
+          <svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+          </svg>
+          <span>Submit Donation</span>
+        `;
       }
     }
 
@@ -1145,6 +1175,32 @@
       }
     });
 
+    // ================== AUTO-REFRESH DASHBOARD ==================
+    function startAutoRefresh() {
+      // Clear existing timer
+      if (refreshTimer) clearInterval(refreshTimer);
+      
+      // Set up new timer
+      refreshTimer = setInterval(loadStats, REFRESH_INTERVAL);
+    }
+
+    function stopAutoRefresh() {
+      if (refreshTimer) {
+        clearInterval(refreshTimer);
+        refreshTimer = null;
+      }
+    }
+
+    // Pause refresh when tab is hidden (save API calls)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopAutoRefresh();
+      } else {
+        startAutoRefresh();
+        loadStats(); // Immediate refresh when tab becomes visible
+      }
+    });
+
     // ================== INTERSECTION OBSERVER FOR REVEALS ==================
     const io = new IntersectionObserver((entries) => {
       entries.forEach(en => {
@@ -1159,8 +1215,14 @@
 
     // ================== INIT ==================
     document.getElementById('theForm').addEventListener('submit', onSubmit);
-    state.load();
-    render();
+    
+    // Initial load
+    loadStats();
+    
+    // Start auto-refresh
+    startAutoRefresh();
+    
+    console.log('Donation Drive: Auto-refreshing every 30 seconds');
   </script>
 </body>
 </html>
