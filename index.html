@@ -897,7 +897,15 @@
     }
 
     function sum() {
-      const buckets = { P1: 0, P2: 0, P3: 0, 'Faculty/Staff': 0 };
+      const buckets = { 
+        P1: 0, 
+        P2: 0, 
+        P3: 0, 
+        P4: 0,
+        'Faculty/Staff': 0,
+        'Organization': 0,
+        'Community Donor': 0
+      };
       const donors = new Set();
       
       for (const d of state.donations) {
