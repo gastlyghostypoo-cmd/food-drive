@@ -1033,7 +1033,7 @@
           <div class="impact-number">$<span id="totalMoneyImpact">0</span></div>
           <div class="impact-label">Total Dollars Raised</div>
           <div class="dollar-visual">
-            <div class="dollar-visual-label">Every $10 = 1 Matched Item</div>
+            <div class="dollar-visual-label">Every 10 Items = $1 Matched</div>
             <div class="dollar-items" id="dollarItems">
               <!-- Populated by JS -->
             </div>
@@ -1065,9 +1065,12 @@
           <label>Contribution Type <span class="required">*</span></label>
           <div class="donation-type">
             <div class="type-btn active" id="typeItem" onclick="selectType('item')">Item Donation</div>
-            <div class="type-btn" id="typeMoney" onclick="selectType('money')">Monetary ($10 = 1 item)</div>
+            <div class="type-btn" id="typeMoney" onclick="selectType('money')">Money</div>
           </div>
 
+          <label for="name">Full Name <span class="required">*</span></label>
+          <input type="name" id="name" placeholder="Jon Doe" required autocomplete="name" />
+          
           <label for="email">Email Address <span class="required">*</span></label>
           <input type="email" id="email" placeholder="john.doe@example.com" required autocomplete="email" />
 
