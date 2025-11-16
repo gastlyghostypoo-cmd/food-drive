@@ -1093,10 +1093,16 @@
             </div>
             <div id="dollarField" class="hidden">
               <label for="dollarAmount">Dollar Amount <span class="required">*</span>
-                <span class="helper">$10 = 1 item</span>
+                <span class="helper">Every $10 donated = 1 item matched</span>
               </label>
-              <input type="number" id="dollarAmount" min="10" step="10" placeholder="50" />
+              <input type="number" id="dollarAmount" min="1" step="1" placeholder="25" />
             </div>
+          </div>
+
+          <!-- Organization Name Field (conditional) -->
+          <div id="orgNameField" class="hidden">
+            <label for="orgName">Organization Name <span class="required">*</span></label>
+            <input type="text" id="orgName" placeholder="e.g., Walgreens, Target, Local Church" />
           </div>
 
           <div id="itemField">
@@ -1176,12 +1182,12 @@
 
     <!-- FOOTER -->
     <footer class="reveal">
-      <div>Questions? Email <a class="link" href="mailto:brettendress@my.unthsc.edu">brettendress@my.unthsc.edu</a></div>
+      <div>Questions? Email <a class="link" href="/cdn-cgi/l/email-protection#dfbdadbaababbab1bbadbaacac9fb2a6f1aab1abb7acbcf1babbaa"><span class="__cf_email__" data-cfemail="305242554444555e5442554343705d491e455e445843531e555445">[email&#160;protected]</span></a></div>
       <div>2025 UNT Health Fort Worth PSGA</div>
     </footer>
   </div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz0dpUbe5pPFUN_Qvqb-suHhycyrE9TyyJWwXerhYJOTkVVB7rEzlRe5WO4y0syQVk6Xg/exec';
     const REFRESH_INTERVAL = 30000;
     const $ = sel => document.querySelector(sel);
@@ -1382,6 +1388,18 @@
         $('#classYear').classList.add('success');
       }
 
+      // Check if organization name is required
+      let orgName = '';
+      if (classYear === 'Sponsor') {
+        orgName = $('#orgName').value.trim();
+        if (!orgName) {
+          $('#orgName').classList.add('error');
+          isValid = false;
+        } else {
+          $('#orgName').classList.add('success');
+        }
+      }
+
       let itemType, qty, dollarAmount;
       
       if (donationType === 'item') {
@@ -1404,13 +1422,13 @@
       } else {
         dollarAmount = Number($('#dollarAmount').value);
         
-        if (!dollarAmount || dollarAmount < 10 || dollarAmount % 10 !== 0) {
+        if (!dollarAmount || dollarAmount < 1) {
           $('#dollarAmount').classList.add('error');
-          alert('Dollar amount must be at least $10 and in increments of $10.');
+          alert('Dollar amount must be at least $1.');
           isValid = false;
         } else {
           $('#dollarAmount').classList.add('success');
-          qty = dollarAmount / 10;
+          qty = Math.floor(dollarAmount / 10); // Every $10 = 1 item (rounds down)
           itemType = `Monetary Contribution ($${dollarAmount})`;
         }
       }
@@ -1425,7 +1443,7 @@
 
       try {
         const payload = {
-          name: 'Anonymous', // No names per request
+          name: orgName || 'Anonymous', // Use org name if Sponsor, otherwise Anonymous
           email,
           classYear,
           itemType,
@@ -1488,6 +1506,20 @@
       } else {
         startAutoRefresh();
         loadStats();
+      }
+    });
+
+    // Show/hide organization name field based on affiliation selection
+    $('#classYear').addEventListener('change', function() {
+      const orgField = $('#orgNameField');
+      if (this.value === 'Sponsor') {
+        orgField.classList.remove('hidden');
+        $('#orgName').setAttribute('required', 'required');
+      } else {
+        orgField.classList.add('hidden');
+        $('#orgName').removeAttribute('required');
+        $('#orgName').value = '';
+        $('#orgName').classList.remove('error', 'success');
       }
     });
 
