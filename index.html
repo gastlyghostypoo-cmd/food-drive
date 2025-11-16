@@ -1026,14 +1026,14 @@
         <div class="impact-card">
           <span class="impact-icon">📦</span>
           <div class="impact-number"><span id="totalItemsImpact">0</span></div>
-          <div class="impact-label">Total Items Donated</div>
+          <div class="impact-label">Total Items</div>
         </div>
         <div class="impact-card">
           <span class="impact-icon">💵</span>
-          <div class="impact-number">$<span id="totalMoney">0</span></div>
+          <div class="impact-number">$<span id="totalMoneyImpact">0</span></div>
           <div class="impact-label">Total Dollars Raised</div>
           <div class="dollar-visual">
-            <div class="dollar-visual-label">$10 = 1 Item Visual</div>
+            <div class="dollar-visual-label">Every $10 = 1 Matched Item</div>
             <div class="dollar-items" id="dollarItems">
               <!-- Populated by JS -->
             </div>
@@ -1041,7 +1041,7 @@
         </div>
         <div class="impact-card">
           <span class="impact-icon">💚</span>
-          <div class="impact-number"><span id="totalDonors">0</span></div>
+          <div class="impact-number"><span id="totalDonorsImpact">0</span></div>
           <div class="impact-label">Contributors</div>
         </div>
       </div>
@@ -1126,43 +1126,45 @@
 
       <!-- DASHBOARD -->
       <section class="card reveal">
-        <h3>Class Competition</h3>
+        <h3>Our Collective Impact</h3>
         
         <div class="statgrid">
           <div class="stat">
             <div class="k">Class of 2029</div>
             <div class="v counter" id="p1Count">0</div>
             <div class="relbar"><span id="p1Rel"></span></div>
-            <div class="rel-label"><span>Relative</span><span id="p1RelPct">0%</span></div>
+            <div class="rel-label"><span>Contribution</span><span id="p1RelPct">0%</span></div>
           </div>
           <div class="stat">
             <div class="k">Class of 2028</div>
             <div class="v counter" id="p2Count">0</div>
             <div class="relbar"><span id="p2Rel"></span></div>
-            <div class="rel-label"><span>Relative</span><span id="p2RelPct">0%</span></div>
+            <div class="rel-label"><span>Contribution</span><span id="p2RelPct">0%</span></div>
           </div>
           <div class="stat">
             <div class="k">Class of 2027</div>
             <div class="v counter" id="p3Count">0</div>
             <div class="relbar"><span id="p3Rel"></span></div>
-            <div class="rel-label"><span>Relative</span><span id="p3RelPct">0%</span></div>
+            <div class="rel-label"><span>Contribution</span><span id="p3RelPct">0%</span></div>
           </div>
         </div>
 
         <div class="statgrid" style="margin-top:12px">
           <div class="stat">
-            <div class="k">Faculty</div>
+            <div class="k">Faculty / Staff</div>
             <div class="v counter" id="fsCount">0</div>
             <div class="relbar"><span id="fsRel"></span></div>
-            <div class="rel-label"><span>Relative</span><span id="fsRelPct">0%</span></div>
+            <div class="rel-label"><span>Contribution</span><span id="fsRelPct">0%</span></div>
           </div>
           <div class="stat">
-            <div class="k">Sponsor Dollars</div>
-            <div class="v">$<span id="sponsorDollars">0</span></div>
+            <div class="k">Sponsors</div>
+            <div class="v counter" id="sponsorCount">0</div>
+            <div style="font-size:14px; color:var(--muted); margin-top:8px; font-weight:600">$<span id="sponsorDollars">0</span> contributed</div>
           </div>
           <div class="stat">
-            <div class="k">Community Dollars</div>
-            <div class="v">$<span id="communityDollars">0</span></div>
+            <div class="k">Everyone Else</div>
+            <div class="v counter" id="otherCount">0</div>
+            <div style="font-size:14px; color:var(--muted); margin-top:8px; font-weight:600">Includes monetary donations</div>
           </div>
         </div>
 
