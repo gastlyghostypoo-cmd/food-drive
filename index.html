@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UNT Health Fort Worth – Pharmacy Donation Drive</title>
+  <title>UNT Health Fort Worth – Holiday Donation Drive</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
@@ -39,7 +39,15 @@
       -moz-osx-font-smoothing: grayscale;
     }
     
-    .wrap{max-width:1180px;margin:0 auto;padding:32px 24px 64px}
+    .wrap{
+      max-width:1200px;
+      margin:0 auto;
+      padding:24px 16px 64px;
+    }
+    
+    @media (min-width:768px){
+      .wrap{padding:32px 24px 80px}
+    }
 
     /* ---------- ANIMATIONS ---------- */
     @keyframes fadeUp { 
@@ -58,17 +66,13 @@
       from{opacity:0; transform:translateX(-12px)} 
       to{opacity:1; transform:translateX(0)} 
     }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
     }
     @keyframes checkmark {
       0% { stroke-dashoffset: 100; }
       100% { stroke-dashoffset: 0; }
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
     }
 
     .reveal{opacity:0; transform: translateY(20px);} 
@@ -80,16 +84,29 @@
       border:1px solid rgba(255,255,255,.2);
       backdrop-filter:saturate(160%) blur(12px);
       -webkit-backdrop-filter:saturate(160%) blur(12px);
-      border-radius:20px;
-      padding:20px 24px;
+      border-radius:16px;
+      padding:16px 18px;
       box-shadow:0 16px 40px rgba(0,0,0,.15), inset 0 1px 0 rgba(255,255,255,.15);
       display:flex;
+      flex-direction:column;
       align-items:center;
-      gap:20px;
+      gap:16px;
       color:#fff;
       position:relative;
       overflow:hidden;
+      text-align:center;
+      margin-bottom:20px;
     }
+    
+    @media (min-width:768px){
+      .masthead{
+        flex-direction:row;
+        text-align:left;
+        padding:20px 24px;
+        margin-bottom:24px;
+      }
+    }
+    
     .masthead::before{
       content:'';
       position:absolute;
@@ -100,24 +117,29 @@
     }
     
     .brandmark{
-      height:78px;
+      height:64px;
       width:auto;
-      max-width:280px;
+      max-width:220px;
       border-radius:12px;
       box-shadow:0 8px 24px rgba(0,0,0,.2);
       display:grid;
       place-items:center;
       overflow:hidden;
       background:#fff;
-      padding:10px;
+      padding:8px;
       position:relative;
       z-index:1;
     }
+    
+    @media (min-width:768px){
+      .brandmark{height:78px; max-width:280px; padding:10px}
+    }
+    
     .brandmark img{width:100%;height:auto;object-fit:contain}
     
     .masthead h1{
       margin:0;
-      font-size:clamp(24px, 4vw, 36px);
+      font-size:clamp(20px, 5vw, 36px);
       line-height:1.15;
       font-weight:900;
       letter-spacing:-0.02em;
@@ -125,34 +147,48 @@
     }
     .mast-sub{
       opacity:.96;
-      font-size:15px;
+      font-size:13px;
       font-weight:600;
       margin-top:4px;
       letter-spacing:0.01em;
     }
-    .mast-actions{
-      margin-left:auto;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
+    
+    @media (min-width:768px){
+      .mast-sub{font-size:15px}
     }
+    
+    .mast-actions{
+      margin-left:0;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    
+    @media (min-width:768px){
+      .mast-actions{
+        margin-left:auto;
+        gap:12px;
+      }
+    }
+    
     .chip{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding:8px 14px;
+      gap:6px;
+      padding:6px 12px;
       border-radius:999px;
       background:var(--unt-light);
       color:#0a3b24;
       font-weight:700;
-      font-size:13px;
+      font-size:11px;
       border:1px solid rgba(0,0,0,.08);
       box-shadow:0 2px 8px rgba(0,0,0,.1);
       transition:transform .2s ease, box-shadow .2s ease;
     }
-    .chip:hover{
-      transform:translateY(-2px);
-      box-shadow:0 4px 12px rgba(0,0,0,.15);
+    
+    @media (min-width:768px){
+      .chip{padding:8px 14px; font-size:13px; gap:8px}
     }
 
     /* Live indicator badge */
@@ -166,58 +202,65 @@
       border:1.5px solid rgba(16,185,129,.4);
       color:#0f7052;
       font-weight:700;
-      font-size:12px;
+      font-size:11px;
       backdrop-filter:blur(8px);
     }
+    
+    @media (min-width:768px){
+      .live-badge{font-size:12px}
+    }
+    
     .live-dot{
-      width:8px;
-      height:8px;
+      width:7px;
+      height:7px;
       border-radius:50%;
       background:#10b981;
       animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @media (min-width:768px){
+      .live-dot{width:8px; height:8px}
     }
 
     /* ---------- HERO BANNER ---------- */
     .hero{
       position:relative;
-      margin-top:24px;
-      border-radius:22px;
+      margin-top:0;
+      border-radius:18px;
       overflow:hidden;
       box-shadow:var(--shadow-strong);
+      margin-bottom:24px;
     } 
+    
+    @media (min-width:768px){
+      .hero{
+        border-radius:22px;
+        margin-bottom:32px;
+      }
+    }
+    
     .hero::before{
       content:"";
       position:absolute;
       inset:0;
       background:
-        linear-gradient(180deg,rgba(0,78,126,.6),rgba(0,133,62,.65)),
-        url('https://images.unsplash.com/photo-1605901309584-818e25960a8b?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+        linear-gradient(180deg,rgba(0,78,126,.7),rgba(0,133,62,.75)),
+        url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
     }
     .hero-inner{
       position:relative;
       z-index:1;
-      padding:56px 32px 60px;
+      padding:40px 20px;
       color:#f7fffb;
-      display:flex;
-      align-items:center;
-      gap:24px;
     }
-    .hero-badge{
-      display:inline-block;
-      background:rgba(255,255,255,.2);
-      border:1.5px solid rgba(255,255,255,.4);
-      padding:8px 14px;
-      border-radius:999px;
-      font-weight:700;
-      font-size:13px;
-      margin-bottom:14px;
-      letter-spacing:0.03em;
-      text-transform:uppercase;
-      box-shadow:0 4px 12px rgba(0,0,0,.15);
+    
+    @media (min-width:768px){
+      .hero-inner{padding:56px 32px 60px}
     }
+    
     .hero h2{
-      margin:8px 0 12px;
-      font-size:clamp(28px, 5vw, 40px);
+      margin:0 0 12px;
+      font-size:clamp(24px, 6vw, 42px);
       line-height:1.12;
       font-weight:900;
       letter-spacing:-0.02em;
@@ -225,27 +268,56 @@
     }
     .hero p{
       margin:0 0 20px;
-      max-width:62ch;
-      font-size:16px;
+      max-width:64ch;
+      font-size:clamp(15px, 3vw, 17px);
       opacity:.97;
-      line-height:1.5;
+      line-height:1.6;
     }
+    .hero-impact{
+      display:inline-block;
+      background:rgba(255,255,255,.2);
+      border:1.5px solid rgba(255,255,255,.4);
+      padding:8px 14px;
+      border-radius:12px;
+      font-weight:600;
+      font-size:13px;
+      margin-top:8px;
+      letter-spacing:0.01em;
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
+      backdrop-filter:blur(8px);
+    }
+    
+    @media (min-width:768px){
+      .hero-impact{font-size:14px; padding:10px 16px}
+    }
+    
     .cta{
       display:inline-flex;
       align-items:center;
-      gap:12px;
-      padding:14px 20px;
-      border-radius:16px;
+      gap:10px;
+      padding:12px 18px;
+      border-radius:14px;
       border:1.5px solid rgba(255,255,255,.4);
       background:rgba(255,255,255,.15);
       backdrop-filter:blur(8px);
       color:#fff;
       font-weight:700;
       text-decoration:none;
-      font-size:15px;
+      font-size:14px;
       transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow:0 4px 16px rgba(0,0,0,.15);
+      margin-top:12px;
     }
+    
+    @media (min-width:768px){
+      .cta{
+        padding:14px 20px;
+        font-size:15px;
+        gap:12px;
+        border-radius:16px;
+      }
+    }
+    
     .cta:hover{
       background:rgba(255,255,255,.25); 
       transform: translateY(-2px) scale(1.02); 
@@ -256,26 +328,119 @@
       transform:translateY(-1px) scale(1.01);
     }
 
+    /* ---------- IMPACT SECTION ---------- */
+    .impact-section{
+      background:rgba(255,255,255,.095);
+      border:1px solid rgba(255,255,255,.2);
+      backdrop-filter:saturate(160%) blur(12px);
+      -webkit-backdrop-filter:saturate(160%) blur(12px);
+      border-radius:18px;
+      padding:24px 20px;
+      margin-bottom:24px;
+      box-shadow:0 12px 32px rgba(0,0,0,.12);
+    }
+    
+    @media (min-width:768px){
+      .impact-section{
+        border-radius:20px;
+        padding:32px 28px;
+        margin-bottom:32px;
+      }
+    }
+    
+    .impact-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+    }
+    
+    @media (min-width:640px){
+      .impact-grid{grid-template-columns:repeat(2, 1fr)}
+    }
+    
+    @media (min-width:1024px){
+      .impact-grid{grid-template-columns:repeat(4, 1fr); gap:20px}
+    }
+    
+    .impact-card{
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:14px;
+      padding:20px 16px;
+      text-align:center;
+      color:#fff;
+      backdrop-filter:blur(8px);
+    }
+    
+    @media (min-width:768px){
+      .impact-card{padding:24px 18px}
+    }
+    
+    .impact-icon{
+      font-size:32px;
+      margin-bottom:10px;
+      display:block;
+    }
+    
+    @media (min-width:768px){
+      .impact-icon{font-size:36px; margin-bottom:12px}
+    }
+    
+    .impact-number{
+      font-size:28px;
+      font-weight:900;
+      letter-spacing:-0.02em;
+      margin-bottom:4px;
+      text-shadow:0 2px 4px rgba(0,0,0,.1);
+    }
+    
+    @media (min-width:768px){
+      .impact-number{font-size:32px}
+    }
+    
+    .impact-label{
+      font-size:12px;
+      font-weight:600;
+      opacity:.95;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+    }
+    
+    @media (min-width:768px){
+      .impact-label{font-size:13px}
+    }
+
     /* ---------- MAIN GRID ---------- */
     .shell{
       display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:28px;
-      margin-top:28px;
+      grid-template-columns:1fr;
+      gap:20px;
     }
-    @media (max-width:1000px){
-      .shell{grid-template-columns:1fr}
+    
+    @media (min-width:1024px){
+      .shell{
+        grid-template-columns:1.15fr .85fr;
+        gap:28px;
+      }
     }
 
     /* ---------- CARDS ---------- */
     .card{
       background:var(--card);
-      border-radius:22px;
+      border-radius:18px;
       box-shadow:var(--shadow);
-      padding:28px 26px;
+      padding:24px 20px;
       border:1px solid rgba(0,0,0,.04);
       transition:box-shadow .3s ease;
     }
+    
+    @media (min-width:768px){
+      .card{
+        border-radius:22px;
+        padding:28px 26px;
+      }
+    }
+    
     .card:hover{
       box-shadow:0 16px 40px rgba(0,0,0,.15);
     }
@@ -283,32 +448,40 @@
     .card h3{
       display:flex;
       align-items:center;
-      gap:12px;
-      margin:0 0 20px;
-      font-size:22px;
+      gap:10px;
+      margin:0 0 18px;
+      font-size:20px;
       font-weight:800;
       color:var(--unt-blue);
       letter-spacing:-0.01em;
     }
-    .card h3 .emoji{font-size:24px}
+    
+    @media (min-width:768px){
+      .card h3{font-size:22px; gap:12px; margin-bottom:20px}
+    }
 
     /* ---------- FORM ELEMENTS ---------- */
     label{
       display:block;
-      font-size:14px;
+      font-size:13px;
       font-weight:600;
       color:var(--ink);
-      margin:14px 0 8px;
+      margin:12px 0 6px;
       letter-spacing:0.01em;
     }
+    
+    @media (min-width:768px){
+      label{font-size:14px; margin:14px 0 8px}
+    }
+    
     label .required{color:#dc2626;font-weight:700}
     
     input,select{
       width:100%;
       box-sizing:border-box;
-      border-radius:14px;
+      border-radius:12px;
       border:1.5px solid #e5e7eb;
-      padding:13px 15px;
+      padding:12px 14px;
       font-size:15px;
       font-family:inherit;
       outline:none;
@@ -317,6 +490,14 @@
       color:var(--ink);
       font-weight:500;
     }
+    
+    @media (min-width:768px){
+      input,select{
+        border-radius:14px;
+        padding:13px 15px;
+      }
+    }
+    
     input:hover,select:hover{
       background:#fff;
       border-color:#d1d5db;
@@ -324,9 +505,16 @@
     input:focus,select:focus{
       border-color:var(--accent);
       background:#fff;
-      box-shadow:0 0 0 4px rgba(0,179,152,.12); 
+      box-shadow:0 0 0 3px rgba(0,179,152,.12); 
       transform: translateY(-1px);
     }
+    
+    @media (min-width:768px){
+      input:focus,select:focus{
+        box-shadow:0 0 0 4px rgba(0,179,152,.12);
+      }
+    }
+    
     input:disabled,select:disabled{
       opacity:0.6;
       cursor:not-allowed;
@@ -344,11 +532,15 @@
     
     .row{
       display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
+      grid-template-columns:1fr;
+      gap:0;
     }
-    @media (max-width:650px){
-      .row{grid-template-columns:1fr}
+    
+    @media (min-width:640px){
+      .row{
+        grid-template-columns:1fr 1fr;
+        gap:14px;
+      }
     }
 
     /* Conditional "Other" field with smooth animation */
@@ -367,31 +559,46 @@
     /* ---------- BUTTONS ---------- */
     .actions{
       display:flex;
-      gap:12px;
+      gap:10px;
       flex-wrap:wrap;
-      margin-top:20px;
+      margin-top:18px;
+    }
+    
+    @media (min-width:768px){
+      .actions{gap:12px; margin-top:20px}
     }
     
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:10px;
-      padding:14px 20px;
-      border-radius:16px;
+      gap:8px;
+      padding:13px 18px;
+      border-radius:14px;
       border:none;
       background:linear-gradient(135deg, var(--unt-green) 0%, var(--unt-blue) 100%);
       color:#fff;
       font-weight:700;
-      font-size:15px;
+      font-size:14px;
       letter-spacing:0.02em;
       cursor:pointer;
-      box-shadow:0 8px 20px rgba(0,133,62,.3);
+      box-shadow:0 6px 18px rgba(0,133,62,.3);
       transition: all .2s cubic-bezier(0.16, 1, 0.3, 1);
       position:relative;
       overflow:hidden;
       font-family:inherit;
     }
+    
+    @media (min-width:768px){
+      .btn{
+        padding:14px 20px;
+        font-size:15px;
+        gap:10px;
+        border-radius:16px;
+        box-shadow:0 8px 20px rgba(0,133,62,.3);
+      }
+    }
+    
     .btn::before{
       content:'';
       position:absolute;
@@ -418,27 +625,43 @@
 
     /* Success message with checkmark animation */
     .notice{
-      margin:20px 0;
+      margin:18px 0;
       background:var(--success);
       color:#fff;
       border:none;
-      padding:16px 20px;
-      border-radius:16px;
-      font-size:15px;
+      padding:14px 18px;
+      border-radius:14px;
+      font-size:14px;
       font-weight:600;
       display:none;
       align-items:center;
-      gap:12px;
-      box-shadow:0 8px 24px rgba(16,185,129,.3);
+      gap:10px;
+      box-shadow:0 6px 20px rgba(16,185,129,.3);
       animation: slideIn .4s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    
+    @media (min-width:768px){
+      .notice{
+        margin:20px 0;
+        padding:16px 20px;
+        border-radius:16px;
+        font-size:15px;
+        gap:12px;
+        box-shadow:0 8px 24px rgba(16,185,129,.3);
+      }
+    }
+    
     .notice.show{
       display:flex;
     }
     .notice svg{
-      width:24px;
-      height:24px;
+      width:20px;
+      height:20px;
       flex-shrink:0;
+    }
+    
+    @media (min-width:768px){
+      .notice svg{width:24px; height:24px}
     }
 
     /* Loading spinner for submitting state */
@@ -457,19 +680,35 @@
     /* ---------- DASHBOARD STATS ---------- */
     .statgrid{
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
-      gap:14px;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+    
+    @media (min-width:640px){
+      .statgrid{grid-template-columns:repeat(2, 1fr)}
+    }
+    
+    @media (min-width:1024px){
+      .statgrid{grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:14px}
     }
     
     .stat{
       position:relative;
       background:linear-gradient(180deg,#ffffff 0%,#f8faf9 100%);
       border:1.5px solid #e8efe8;
-      border-radius:16px;
-      padding:18px;
+      border-radius:14px;
+      padding:16px 14px;
       overflow:hidden;
       transition:all .3s cubic-bezier(0.16, 1, 0.3, 1);
     }
+    
+    @media (min-width:768px){
+      .stat{
+        border-radius:16px;
+        padding:18px;
+      }
+    }
+    
     .stat:hover{
       transform:translateY(-2px);
       box-shadow:0 8px 20px rgba(0,0,0,.1);
@@ -481,40 +720,60 @@
       left:0;
       top:0;
       bottom:0;
-      width:5px;
+      width:4px;
       background:linear-gradient(180deg,var(--unt-green) 0%,var(--unt-blue) 100%);
       opacity:.9;
     }
+    
+    @media (min-width:768px){
+      .stat:before{width:5px}
+    }
+    
     .stat .k{
-      font-size:13px;
+      font-size:11px;
       font-weight:600;
       color:var(--muted);
-      margin-left:8px;
-      margin-bottom:8px;
+      margin-left:6px;
+      margin-bottom:6px;
       text-transform:uppercase;
       letter-spacing:0.05em;
     }
+    
+    @media (min-width:768px){
+      .stat .k{font-size:13px; margin-left:8px; margin-bottom:8px}
+    }
+    
     .stat .v{
-      font-size:32px;
+      font-size:26px;
       font-weight:900;
       color:var(--unt-dark);
-      margin-left:8px;
+      margin-left:6px;
       letter-spacing:-0.02em;
     }
+    
+    @media (min-width:768px){
+      .stat .v{font-size:32px; margin-left:8px}
+    }
+    
     .stat.updated{
       animation: glowPulse 1s cubic-bezier(0.16, 1, 0.3, 1) 1;
     }
 
     /* Progress bars with gradient fills */
     .relbar{
-      height:12px;
+      height:10px;
       background:#ecf5f0;
       border:1.5px solid #dfeae4;
       border-radius:999px;
       overflow:hidden;
-      margin-top:10px;
+      margin-top:8px;
       position:relative;
     }
+    
+    @media (min-width:768px){
+      .relbar{height:12px; margin-top:10px}
+    }
+    
     .relbar span{
       display:block;
       height:100%;
@@ -534,39 +793,55 @@
     .rel-label{
       display:flex;
       justify-content:space-between;
-      font-size:12px;
+      font-size:11px;
       font-weight:600;
       color:#415048;
-      margin-top:6px;
+      margin-top:4px;
+    }
+    
+    @media (min-width:768px){
+      .rel-label{font-size:12px; margin-top:6px}
     }
 
     /* ---------- LISTS ---------- */
     .lists{
       display:grid;
       grid-template-columns:1fr;
-      gap:18px;
-      margin-top:14px;
+      gap:16px;
+      margin-top:12px;
+    }
+    
+    @media (min-width:768px){
+      .lists{gap:18px; margin-top:14px}
     }
     
     .list{
       background:#fbfdfc;
       border:1.5px solid #e6f0ea;
-      border-radius:16px;
+      border-radius:14px;
       overflow:hidden;
     }
+    
+    @media (min-width:768px){
+      .list{border-radius:16px}
+    }
+    
     .list h4{
       margin:0;
-      padding:16px 18px;
+      padding:14px 16px;
       color:#0f3d26;
       font-weight:700;
-      font-size:16px;
+      font-size:15px;
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:8px;
       background:linear-gradient(135deg, #f0f9f4, #ffffff);
       border-bottom:1.5px solid #e6f0ea;
     }
-    .list h4 .emoji{font-size:18px}
+    
+    @media (min-width:768px){
+      .list h4{padding:16px 18px; font-size:16px; gap:10px}
+    }
     
     .list ul{
       list-style:none;
@@ -577,11 +852,17 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
-      padding:14px 18px;
+      padding:12px 16px;
       border-bottom:1px solid #f0f4f2;
       transition:background .2s ease;
       animation: slideIn .3s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+      font-size:14px;
     }
+    
+    @media (min-width:768px){
+      .list li{padding:14px 18px; font-size:15px}
+    }
+    
     .list li:nth-child(1){animation-delay:.05s}
     .list li:nth-child(2){animation-delay:.1s}
     .list li:nth-child(3){animation-delay:.15s}
@@ -594,40 +875,68 @@
     .list li strong{
       color:var(--unt-green);
       font-weight:700;
-      font-size:16px;
+      font-size:15px;
     }
+    
+    @media (min-width:768px){
+      .list li strong{font-size:16px}
+    }
+    
     .empty{
-      padding:20px 18px;
+      padding:18px 16px;
       color:var(--muted);
       text-align:center;
       font-style:italic;
+      font-size:14px;
+    }
+    
+    @media (min-width:768px){
+      .empty{padding:20px 18px; font-size:15px}
     }
 
     /* Last updated timestamp */
     .last-updated{
-      font-size:12px;
+      font-size:11px;
       color:var(--muted);
       text-align:center;
-      margin-top:12px;
+      margin-top:10px;
       font-style:italic;
+    }
+    
+    @media (min-width:768px){
+      .last-updated{font-size:12px; margin-top:12px}
     }
 
     /* ---------- FOOTER ---------- */
     footer{
-      margin-top:36px;
+      margin-top:32px;
       background:rgba(0,0,0,.12);
       border:1px solid rgba(255,255,255,.18);
-      border-radius:18px;
-      padding:18px 20px;
+      border-radius:16px;
+      padding:16px 18px;
       color:#e8f5ee;
       opacity:.96;
-      font-size:13.5px;
+      font-size:12px;
       display:flex;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
+      flex-direction:column;
+      gap:10px;
+      text-align:center;
       backdrop-filter:blur(8px);
     }
+    
+    @media (min-width:768px){
+      footer{
+        flex-direction:row;
+        justify-content:space-between;
+        gap:14px;
+        text-align:left;
+        margin-top:36px;
+        border-radius:18px;
+        padding:18px 20px;
+        font-size:13.5px;
+      }
+    }
+    
     .link{
       color:#c9fff0;
       text-decoration:underline;
@@ -636,16 +945,6 @@
     }
     .link:hover{
       color:#fff;
-    }
-
-    /* ---------- RESPONSIVE ---------- */
-    @media (max-width:768px){
-      .wrap{padding:20px 16px 48px}
-      .masthead{flex-direction:column;text-align:center}
-      .mast-actions{margin-left:0;justify-content:center}
-      .hero-inner{flex-direction:column;padding:40px 24px 44px}
-      .statgrid{grid-template-columns:1fr}
-      footer{flex-direction:column;text-align:center}
     }
   </style>
 </head>
@@ -663,24 +962,48 @@
       <div class="mast-actions">
         <span class="live-badge">
           <span class="live-dot"></span>
-          LIVE 30s UPDATES
+          LIVE
         </span>
-        <span class="chip" title="Student-led with faculty support">PSGA • Class of 2028</span>
+        <span class="chip">PSGA • 2028</span>
       </div>
     </header>
 
     <!-- HERO BANNER -->
     <section class="hero reveal" aria-label="Donation Drive Hero">
       <div class="hero-inner">
-        <div>
-          <h2>Make a Difference in Our Community</h2>
-          <p>Your contribution—big or small—helps bring comfort and joy to kids and families receiving care at Cook Children's Medical Center.</p>
-          <a href="#donationForm" class="cta">
-            <span>Donate Now</span>
-            <svg style="width:20px;height:20px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-          </a>
+        <h2>Every Item Brings Hope to a Child at Cook Children's</h2>
+        <p>Right now, families are navigating some of the hardest days of their lives. Your donation—whether it's canned soup, baby formula, or even just a few items—helps provide comfort, dignity, and a reminder that their community cares.</p>
+        <div class="hero-impact">✨ Together, we've collected <strong id="heroCount">0 items</strong> so far</div>
+        <a href="#donationForm" class="cta">
+          <span>Add Your Donation</span>
+          <svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- IMPACT SECTION -->
+    <section class="impact-section reveal">
+      <div class="impact-grid">
+        <div class="impact-card">
+          <span class="impact-icon">🍽️</span>
+          <div class="impact-number">~<span id="mealsServed">0</span></div>
+          <div class="impact-label">Meals Provided</div>
         </div>
-        <div class="hero-badge">All donations benefit Cook Children's Medical Center in Fort Worth</div>
+        <div class="impact-card">
+          <span class="impact-icon">👨‍👩‍👧‍👦</span>
+          <div class="impact-number"><span id="familiesHelped">0</span>+</div>
+          <div class="impact-label">Families Helped</div>
+        </div>
+        <div class="impact-card">
+          <span class="impact-icon">🏥</span>
+          <div class="impact-number">100%</div>
+          <div class="impact-label">Goes to Cook's</div>
+        </div>
+        <div class="impact-card">
+          <span class="impact-icon">💚</span>
+          <div class="impact-number"><span id="donorCount">0</span></div>
+          <div class="impact-label">Generous Donors</div>
+        </div>
       </div>
     </section>
 
@@ -688,7 +1011,7 @@
     <div class="shell">
       <!-- DONATION FORM -->
       <section class="card reveal" id="donationForm" aria-label="Donation Form">
-        <h3><span class="emoji"></span> Submit Your Donation</h3>
+        <h3>Submit Your Donation</h3>
         
         <div class="notice" id="successNotice">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -698,7 +1021,7 @@
         </div>
 
         <form id="theForm" novalidate>
-          <label for="name">Full Name <span class="required">*</span></label>
+          <label for="name">Your Name <span class="required">*</span></label>
           <input type="text" id="name" placeholder="John Doe" required autocomplete="name" />
 
           <label for="email">Email Address <span class="required">*</span></label>
@@ -706,19 +1029,19 @@
 
           <div class="row">
             <div>
-              <label for="classYear">Class / Affiliation <span class="required">*</span></label>
+              <label for="classYear">Your Affiliation <span class="required">*</span></label>
               <select id="classYear" required>
                 <option value="">Select...</option>
-                <optgroup label="👨‍🎓 Students">
+                <optgroup label="Students">
                   <option value="P1">P1 - Class of 2029</option>
                   <option value="P2">P2 - Class of 2028</option>
                   <option value="P3">P3 - Class of 2027</option>
                   <option value="P4">P4 - Class of 2026</option>
                 </optgroup>
-                <optgroup label="👔 Staff & External">
+                <optgroup label="Staff & Community">
                   <option value="Faculty/Staff">Faculty / Staff</option>
                   <option value="Organization">Organization / Business</option>
-                  <option value="Community Donor">Community Donor</option>
+                  <option value="Community Donor">Community Member</option>
                 </optgroup>
               </select>
             </div>
@@ -728,73 +1051,73 @@
             </div>
           </div>
 
-          <label for="itemType">Item Category <span class="required">*</span></label>
+          <label for="itemType">What are you donating? <span class="required">*</span></label>
           <select id="itemType" required>
             <option value="">Choose a category...</option>
-            <optgroup label="🥫 Canned Goods">
+            <optgroup label="Canned Goods">
               <option value="Canned Soup">Canned Soup</option>
-              <option value="Canned Vegetables">Canned Vegetables (Corn, Peas, Beans)</option>
-              <option value="Canned Fruit">Canned Fruit (Peaches, Pears, Pineapple)</option>
-              <option value="Canned Meat">Canned Meat (Tuna, Chicken, Spam)</option>
-              <option value="Canned Beans">Canned Beans (Black, Pinto, Kidney)</option>
-              <option value="Tomato Products">Tomato Sauce / Paste / Diced Tomatoes</option>
+              <option value="Canned Vegetables">Canned Vegetables</option>
+              <option value="Canned Fruit">Canned Fruit</option>
+              <option value="Canned Meat">Canned Meat (Tuna, Chicken)</option>
+              <option value="Canned Beans">Canned Beans</option>
+              <option value="Tomato Products">Tomato Products</option>
             </optgroup>
-            <optgroup label="🍝 Dry Goods & Grains">
-              <option value="Pasta">Pasta (Spaghetti, Macaroni, Penne)</option>
-              <option value="Rice">Rice (White, Brown, Instant)</option>
-              <option value="Oatmeal">Oatmeal / Instant Oats</option>
+            <optgroup label="Dry Goods & Grains">
+              <option value="Pasta">Pasta</option>
+              <option value="Rice">Rice</option>
+              <option value="Oatmeal">Oatmeal</option>
               <option value="Cereal">Breakfast Cereal</option>
-              <option value="Crackers">Crackers / Saltines</option>
-              <option value="Pancake Mix">Pancake / Waffle Mix</option>
+              <option value="Crackers">Crackers</option>
+              <option value="Pancake Mix">Pancake Mix</option>
             </optgroup>
-            <optgroup label="🥜 Proteins & Spreads">
+            <optgroup label="Proteins & Spreads">
               <option value="Peanut Butter">Peanut Butter</option>
-              <option value="Nut Butters">Other Nut Butters (Almond, Cashew)</option>
+              <option value="Nut Butters">Other Nut Butters</option>
               <option value="Dried Beans">Dried Beans / Lentils</option>
               <option value="Nuts">Nuts / Trail Mix</option>
             </optgroup>
-            <optgroup label="🍲 Meals & Sauces">
-              <option value="Mac & Cheese">Mac & Cheese Boxes</option>
+            <optgroup label="Quick Meals">
+              <option value="Mac & Cheese">Mac & Cheese</option>
               <option value="Instant Meals">Instant Meals (Ramen, Cup Noodles)</option>
-              <option value="Pasta Sauce">Pasta Sauce / Marinara</option>
-              <option value="Soup Mixes">Dried Soup Mixes</option>
-              <option value="Boxed Meals">Boxed Meal Kits (Helper, etc.)</option>
+              <option value="Pasta Sauce">Pasta Sauce</option>
+              <option value="Soup Mixes">Soup Mixes</option>
+              <option value="Boxed Meals">Boxed Meal Kits</option>
             </optgroup>
-            <optgroup label="🍪 Snacks & Treats">
-              <option value="Granola Bars">Granola Bars / Protein Bars</option>
+            <optgroup label="Snacks">
+              <option value="Granola Bars">Granola Bars</option>
               <option value="Cookies">Cookies / Crackers</option>
-              <option value="Popcorn">Microwave Popcorn</option>
-              <option value="Dried Fruit">Dried Fruit / Fruit Snacks</option>
+              <option value="Popcorn">Popcorn</option>
+              <option value="Dried Fruit">Dried Fruit</option>
             </optgroup>
-            <optgroup label="🥤 Beverages">
-              <option value="Juice Boxes">Juice Boxes / Pouches</option>
-              <option value="Powdered Drinks">Powdered Drink Mix</option>
-              <option value="Coffee/Tea">Coffee / Tea Bags</option>
+            <optgroup label="Beverages">
+              <option value="Juice Boxes">Juice Boxes</option>
+              <option value="Powdered Drinks">Powdered Drinks</option>
+              <option value="Coffee/Tea">Coffee / Tea</option>
               <option value="Bottled Water">Bottled Water</option>
             </optgroup>
-            <optgroup label="🍼 Baby & Kids">
-              <option value="Baby Food">Baby Food Pouches / Jars</option>
+            <optgroup label="Baby & Kids">
+              <option value="Baby Food">Baby Food</option>
               <option value="Baby Formula">Baby Formula</option>
               <option value="Diapers">Diapers / Wipes</option>
-              <option value="Kids Snacks">Kids' Snacks (Goldfish, etc.)</option>
+              <option value="Kids Snacks">Kids' Snacks</option>
             </optgroup>
-            <optgroup label="🧴 Personal Care & Other">
+            <optgroup label="Personal Care">
               <option value="Toiletries">Toiletries (Soap, Shampoo, Toothpaste)</option>
               <option value="Feminine Products">Feminine Hygiene Products</option>
-              <option value="Cleaning Supplies">Cleaning / Household Supplies</option>
+              <option value="Cleaning Supplies">Cleaning Supplies</option>
               <option value="Pet Food">Pet Food</option>
             </optgroup>
-            <option value="Other">🔹 Other (Please Specify)</option>
+            <option value="Other">Other (Please Specify)</option>
           </select>
 
-          <!-- Conditional "Other" field - shown only when "Other" is selected -->
+          <!-- Conditional "Other" field -->
           <div class="other-field" id="otherField">
-            <label for="otherItem">Please specify the item <span class="required">*</span></label>
-            <input type="text" id="otherItem" placeholder="e.g., Baking supplies, condiments, etc." />
+            <label for="otherItem">Please specify <span class="required">*</span></label>
+            <input type="text" id="otherItem" placeholder="e.g., Baking supplies, condiments" />
           </div>
 
-          <label for="note">Optional Note / Message</label>
-          <input type="text" id="note" placeholder="Add a message of encouragement..." />
+          <label for="note">Add a note of encouragement (optional)</label>
+          <input type="text" id="note" placeholder="Wishing you strength and comfort..." />
 
           <div class="actions">
             <button type="submit" class="btn" id="submitBtn">
@@ -806,67 +1129,64 @@
       </section>
 
       <!-- LIVE DASHBOARD -->
-      <section class="card reveal" aria-label="Live Statistics Dashboard">
-        <h3><span class="emoji"></span> Live Impact Dashboard</h3>
+      <section class="card reveal" aria-label="Live Dashboard">
+        <h3>See Our Collective Impact</h3>
         
-        <!-- Class competition stats with relative progress -->
+        <!-- Class competition -->
         <div class="statgrid">
-          <!-- Students -->
           <div class="stat">
             <div class="k">Class of 2029</div>
-            <div class="v counter" id="p1Count" data-count="0">0</div>
+            <div class="v counter" id="p1Count">0</div>
             <div class="relbar"><span id="p1Rel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="p1RelPct">0%</span></div>
           </div>
           <div class="stat">
             <div class="k">Class of 2028</div>
-            <div class="v counter" id="p2Count" data-count="0">0</div>
+            <div class="v counter" id="p2Count">0</div>
             <div class="relbar"><span id="p2Rel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="p2RelPct">0%</span></div>
           </div>
           <div class="stat">
             <div class="k">Class of 2027</div>
-            <div class="v counter" id="p3Count" data-count="0">0</div>
+            <div class="v counter" id="p3Count">0</div>
             <div class="relbar"><span id="p3Rel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="p3RelPct">0%</span></div>
           </div>
           <div class="stat">
             <div class="k">Class of 2026</div>
-            <div class="v counter" id="p4Count" data-count="0">0</div>
+            <div class="v counter" id="p4Count">0</div>
             <div class="relbar"><span id="p4Rel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="p4RelPct">0%</span></div>
           </div>
-          
-          <!-- External Donors -->
           <div class="stat">
-            <div class="k">Faculty Donations</div>
-            <div class="v counter" id="fsCount" data-count="0">0</div>
+            <div class="k">Faculty</div>
+            <div class="v counter" id="fsCount">0</div>
             <div class="relbar"><span id="fsRel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="fsRelPct">0%</span></div>
           </div>
           <div class="stat">
-            <div class="k">Sponsor Donations</div>
-            <div class="v counter" id="orgCount" data-count="0">0</div>
+            <div class="k">Sponsors</div>
+            <div class="v counter" id="orgCount">0</div>
             <div class="relbar"><span id="orgRel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="orgRelPct">0%</span></div>
           </div>
           <div class="stat">
-            <div class="k">Community Donations</div>
-            <div class="v counter" id="commCount" data-count="0">0</div>
+            <div class="k">Community</div>
+            <div class="v counter" id="commCount">0</div>
             <div class="relbar"><span id="commRel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="commRelPct">0%</span></div>
           </div>
         </div>
 
         <!-- Overall totals -->
-        <div class="statgrid" style="margin-top:14px; grid-template-columns:repeat(3,1fr)">
-          <div class="stat" style="grid-column: span 1">
+        <div class="statgrid" style="margin-top:12px; grid-template-columns:repeat(3,1fr)">
+          <div class="stat">
             <div class="k">Total Items</div>
-            <div class="v counter" id="totalItems" data-count="0">0</div>
+            <div class="v counter" id="totalItems">0</div>
           </div>
           <div class="stat">
             <div class="k">Total Donors</div>
-            <div class="v counter" id="totalDonors" data-count="0">0</div>
+            <div class="v counter" id="totalDonors">0</div>
           </div>
           <div class="stat">
             <div class="k">Avg / Donor</div>
@@ -874,12 +1194,12 @@
           </div>
         </div>
 
-        <!-- Recent donations feed -->
+        <!-- Recent donations -->
         <div class="lists">
           <div class="list">
-            <h4><span class="emoji">⚡</span> Recent Donations</h4>
+            <h4>Recent Contributions</h4>
             <ul id="recentDonations">
-              <li class="empty">Loading donations...</li>
+              <li class="empty">Loading...</li>
             </ul>
           </div>
         </div>
@@ -896,35 +1216,27 @@
   </div>
 
   <script>
-    // ================== CONFIG ==================
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz0dpUbe5pPFUN_Qvqb-suHhycyrE9TyyJWwXerhYJOTkVVB7rEzlRe5WO4y0syQVk6Xg/exec';
-    const REFRESH_INTERVAL = 30000; // Refresh dashboard every 30 seconds
+    const REFRESH_INTERVAL = 30000;
     const $ = sel => document.querySelector(sel);
     const $$ = sel => document.querySelectorAll(sel);
 
     let refreshTimer = null;
 
-    // ================== UTILITIES ==================
     function escapeHtml(s) {
       return String(s).replace(/[&<>"']/g, m => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        '\'': '&#39;'
+        '&': '&amp;','<': '&lt;','>': '&gt;','"': '&quot;','\'': '&#39;'
       }[m]));
     }
 
-    // Smooth counter animation using requestAnimationFrame
     function animateCount(el, target) {
       const start = Number(el.textContent) || 0;
-      const duration = 900; // ms
+      const duration = 900;
       const t0 = performance.now();
       
       function step(t) {
         const elapsed = t - t0;
         const progress = Math.min(1, elapsed / duration);
-        // Ease-out cubic for smooth deceleration
         const eased = 1 - Math.pow(1 - progress, 3);
         const val = Math.round(start + (target - start) * eased);
         el.textContent = val;
@@ -936,7 +1248,7 @@
     function markUpdated(card) {
       if (!card) return;
       card.classList.remove('updated');
-      card.offsetHeight; // Force reflow
+      card.offsetHeight;
       card.classList.add('updated');
     }
 
@@ -950,7 +1262,6 @@
       $('#lastUpdated').textContent = `Last updated: ${timeStr}`;
     }
 
-    // ================== LOAD STATS FROM GOOGLE SHEETS ==================
     async function loadStats() {
       try {
         const response = await fetch(SCRIPT_URL);
@@ -963,7 +1274,6 @@
       }
     }
 
-    // ================== RENDER DASHBOARD ==================
     function renderStats(stats) {
       const buckets = stats.classCounts || {};
       
@@ -977,7 +1287,6 @@
         ['#commCount', buckets['Community Donor'] || 0, '#commRel', '#commRelPct']
       ];
 
-      // Calculate relative max for progress bars
       const maxVal = Math.max(1, ...Object.values(buckets));
 
       for (const [countSel, val, barSel, pctSel] of map) {
@@ -1001,7 +1310,6 @@
         }
       }
 
-      // Update totals
       animateCount($('#totalItems'), stats.totalItems || 0);
       markUpdated($('#totalItems').closest('.stat'));
       animateCount($('#totalDonors'), stats.totalDonors || 0);
@@ -1010,12 +1318,23 @@
       const avgPer = stats.totalDonors ? (stats.totalItems / stats.totalDonors).toFixed(1) : '0';
       $('#avgPer').textContent = avgPer;
 
-      // Render recent donations
+      // Update hero count
+      $('#heroCount').textContent = stats.totalItems || 0;
+      
+      // Update impact metrics
+      const meals = Math.floor((stats.totalItems || 0) * 3); // Assume 3 meals per item
+      animateCount($('#mealsServed'), meals);
+      
+      const families = Math.floor((stats.totalItems || 0) / 10); // Assume 10 items per family
+      animateCount($('#familiesHelped'), families);
+      
+      animateCount($('#donorCount'), stats.totalDonors || 0);
+
       const ul = $('#recentDonations');
       ul.innerHTML = '';
       
       if (!stats.recentDonations || stats.recentDonations.length === 0) {
-        ul.innerHTML = '<li class="empty">No donations yet. Be the first! ✨</li>';
+        ul.innerHTML = '<li class="empty">No donations yet. Be the first!</li>';
       } else {
         for (const d of stats.recentDonations) {
           const li = document.createElement('li');
@@ -1028,7 +1347,6 @@
       }
     }
 
-    // ================== FORM HANDLING ==================
     function showSuccess() {
       const notice = $('#successNotice');
       notice.classList.add('show');
@@ -1052,12 +1370,10 @@
       const qty = Number($('#qty').value);
       const note = $('#note').value.trim();
       
-      // Clear previous validation states
       $$('input, select').forEach(el => {
         el.classList.remove('error', 'success');
       });
 
-      // Validation
       let isValid = true;
       
       if (!name) {
@@ -1095,7 +1411,6 @@
         $('#qty').classList.add('success');
       }
 
-      // If "Other" is selected, require the otherItem field
       let finalItemType = itemType;
       if (itemType === 'Other') {
         const otherItem = $('#otherItem').value.trim();
@@ -1113,12 +1428,10 @@
         return;
       }
 
-      // Disable button and show loading state
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<div class="spinner"></div><span>Submitting...</span>';
 
       try {
-        // Submit to Google Sheets
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
           body: JSON.stringify({ name, email, classYear, itemType: finalItemType, qty, note })
@@ -1127,18 +1440,15 @@
         const result = await response.json();
         
         if (result.success) {
-          // Reset form
           e.target.reset();
           $('#otherField').classList.remove('show');
           showSuccess();
           
-          // Immediately update dashboard with returned stats
           if (result.stats) {
             renderStats(result.stats);
             updateTimestamp();
           }
           
-          // Also trigger a fresh load to be sure
           setTimeout(loadStats, 1000);
         } else {
           throw new Error(result.error || 'Submission failed');
@@ -1147,7 +1457,6 @@
         console.error('Error submitting donation:', error);
         alert('There was an error submitting your donation. Please try again.');
       } finally {
-        // Re-enable button
         submitBtn.disabled = false;
         submitBtn.innerHTML = `
           <svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1158,7 +1467,6 @@
       }
     }
 
-    // ================== CONDITIONAL FIELD LOGIC ==================
     $('#itemType').addEventListener('change', function() {
       const otherField = $('#otherField');
       if (this.value === 'Other') {
@@ -1172,12 +1480,8 @@
       }
     });
 
-    // ================== AUTO-REFRESH DASHBOARD ==================
     function startAutoRefresh() {
-      // Clear existing timer
       if (refreshTimer) clearInterval(refreshTimer);
-      
-      // Set up new timer
       refreshTimer = setInterval(loadStats, REFRESH_INTERVAL);
     }
 
@@ -1188,17 +1492,15 @@
       }
     }
 
-    // Pause refresh when tab is hidden (save API calls)
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         stopAutoRefresh();
       } else {
         startAutoRefresh();
-        loadStats(); // Immediate refresh when tab becomes visible
+        loadStats();
       }
     });
 
-    // ================== INTERSECTION OBSERVER FOR REVEALS ==================
     const io = new IntersectionObserver((entries) => {
       entries.forEach(en => {
         if (en.isIntersecting) {
@@ -1210,16 +1512,9 @@
     
     $$('.reveal').forEach(el => io.observe(el));
 
-    // ================== INIT ==================
     document.getElementById('theForm').addEventListener('submit', onSubmit);
-    
-    // Initial load
     loadStats();
-    
-    // Start auto-refresh
     startAutoRefresh();
-    
-    console.log('Donation Drive: Auto-refreshing every 30 seconds');
   </script>
 </body>
 </html>
