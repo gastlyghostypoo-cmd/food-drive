@@ -1289,20 +1289,21 @@
     function renderStats(stats) {
       const buckets = stats.classCounts || {};
       
-      // Calculate sponsor/community dollars (new logic needed in Apps Script)
+      // Get dollar amounts
       const sponsorDollars = stats.sponsorDollars || 0;
       const communityDollars = stats.communityDollars || 0;
       const totalMoney = sponsorDollars + communityDollars;
       
+      // Update class competition stats
       const map = [
         ['#p1Count', buckets['P1'] || 0, '#p1Rel', '#p1RelPct'],
         ['#p2Count', buckets['P2'] || 0, '#p2Rel', '#p2RelPct'],
         ['#p3Count', buckets['P3'] || 0, '#p3Rel', '#p3RelPct'],
         ['#fsCount', buckets['Faculty/Staff'] || 0, '#fsRel', '#fsRelPct']
       ];
-
+    
       const maxVal = Math.max(1, buckets['P1'] || 0, buckets['P2'] || 0, buckets['P3'] || 0, buckets['Faculty/Staff'] || 0);
-
+    
       for (const [countSel, val, barSel, pctSel] of map) {
         const el = $(countSel);
         if (!el) continue;
@@ -1323,17 +1324,34 @@
           pctEl.textContent = pct + '%';
         }
       }
-
+    
+      // ✅ FIX: Update sponsor and community item counts
+      animateCount($('#sponsorCount'), buckets['Sponsor'] || 0);
+      
+      // Community = P1 + P2 + P3 + Faculty/Staff
+      const communityItems = (buckets['P1'] || 0) + (buckets['P2'] || 0) + (buckets['P3'] || 0) + (buckets['Faculty/Staff'] || 0);
+      animateCount($('#otherCount'), communityItems);
+    
+      // ✅ FIX: Impact section (corrected element IDs)
       animateCount($('#totalItemsImpact'), stats.totalItems || 0);
-      animateCount($('#totalMoney'), totalMoney);
-      animateCount($('#totalDonors'), stats.totalDonors || 0);
+      animateCount($('#totalMoneyImpact'), totalMoney);  // Fixed from totalMoney
+      animateCount($('#totalDonorsImpact'), stats.totalDonors || 0);
+      
+      // Update dollar displays
       animateCount($('#sponsorDollars'), sponsorDollars);
-      animateCount($('#communityDollars'), communityDollars);
       
-      $('#heroCount').textContent = stats.totalItems || 0;
+      // Only update if element exists
+      if ($('#communityDollars')) {
+        animateCount($('#communityDollars'), communityDollars);
+      }
       
+      // Update hero count
+      $('#heroCount').textContent = (stats.totalItems || 0) + ' items';
+      
+      // Render $10 = 1 item visualization
       renderDollarVisual(totalMoney);
-
+    
+      // Update recent contributions
       const ul = $('#recentDonations');
       ul.innerHTML = '';
       
