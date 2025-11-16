@@ -17,11 +17,9 @@
       --ink:#0a0e0c;
       --muted:#5e6b63;
       --card:#ffffff;
-      --ring: rgba(0,0,0,.08);
       --shadow: 0 10px 25px rgba(0,0,0,.12);
       --shadow-strong: 0 20px 60px rgba(0,0,0,.18);
       --success:#10b981;
-      --warning:#f59e0b;
     }
     
     *,*::before,*::after{box-sizing:border-box}
@@ -184,7 +182,6 @@
       font-size:11px;
       border:1px solid rgba(0,0,0,.08);
       box-shadow:0 2px 8px rgba(0,0,0,.1);
-      transition:transform .2s ease, box-shadow .2s ease;
     }
     
     @media (min-width:768px){
@@ -324,9 +321,6 @@
       box-shadow:0 12px 28px rgba(0,0,0,.2);
       border-color:rgba(255,255,255,.5);
     }
-    .cta:active{
-      transform:translateY(-1px) scale(1.01);
-    }
 
     /* ---------- IMPACT SECTION ---------- */
     .impact-section{
@@ -359,7 +353,7 @@
     }
     
     @media (min-width:1024px){
-      .impact-grid{grid-template-columns:repeat(4, 1fr); gap:20px}
+      .impact-grid{grid-template-columns:repeat(3, 1fr); gap:20px}
     }
     
     .impact-card{
@@ -410,6 +404,39 @@
       .impact-label{font-size:13px}
     }
 
+    /* $10 = 1 item visualization */
+    .dollar-visual{
+      margin-top:16px;
+      padding-top:16px;
+      border-top:1px solid rgba(255,255,255,.2);
+    }
+    .dollar-visual-label{
+      font-size:11px;
+      font-weight:600;
+      opacity:.85;
+      margin-bottom:8px;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+    }
+    .dollar-items{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .dollar-item{
+      width:20px;
+      height:20px;
+      background:rgba(255,255,255,.3);
+      border:1px solid rgba(255,255,255,.4);
+      border-radius:4px;
+      transition:all .2s ease;
+    }
+    .dollar-item.filled{
+      background:var(--accent-bright);
+      border-color:var(--accent-bright);
+      box-shadow:0 0 8px rgba(0,212,176,.4);
+    }
+
     /* ---------- MAIN GRID ---------- */
     .shell{
       display:grid;
@@ -431,7 +458,6 @@
       box-shadow:var(--shadow);
       padding:24px 20px;
       border:1px solid rgba(0,0,0,.04);
-      transition:box-shadow .3s ease;
     }
     
     @media (min-width:768px){
@@ -439,10 +465,6 @@
         border-radius:22px;
         padding:28px 26px;
       }
-    }
-    
-    .card:hover{
-      box-shadow:0 16px 40px rgba(0,0,0,.15);
     }
     
     .card h3{
@@ -475,8 +497,13 @@
     }
     
     label .required{color:#dc2626;font-weight:700}
+    label .helper{font-size:11px; font-weight:500; color:var(--muted); display:block; margin-top:2px}
     
-    input,select{
+    @media (min-width:768px){
+      label .helper{font-size:12px}
+    }
+    
+    input,select,textarea{
       width:100%;
       box-sizing:border-box;
       border-radius:12px;
@@ -491,18 +518,23 @@
       font-weight:500;
     }
     
+    textarea{
+      resize:vertical;
+      min-height:80px;
+    }
+    
     @media (min-width:768px){
-      input,select{
+      input,select,textarea{
         border-radius:14px;
         padding:13px 15px;
       }
     }
     
-    input:hover,select:hover{
+    input:hover,select:hover,textarea:hover{
       background:#fff;
       border-color:#d1d5db;
     }
-    input:focus,select:focus{
+    input:focus,select:focus,textarea:focus{
       border-color:var(--accent);
       background:#fff;
       box-shadow:0 0 0 3px rgba(0,179,152,.12); 
@@ -510,22 +542,22 @@
     }
     
     @media (min-width:768px){
-      input:focus,select:focus{
+      input:focus,select:focus,textarea:focus{
         box-shadow:0 0 0 4px rgba(0,179,152,.12);
       }
     }
     
-    input:disabled,select:disabled{
+    input:disabled,select:disabled,textarea:disabled{
       opacity:0.6;
       cursor:not-allowed;
     }
     
     /* Validation states */
-    input.error,select.error{
+    input.error,select.error,textarea.error{
       border-color:#dc2626;
       background:#fef2f2;
     }
-    input.success,select.success{
+    input.success,select.success,textarea.success{
       border-color:var(--success);
       background:#f0fdf4;
     }
@@ -543,17 +575,34 @@
       }
     }
 
-    /* Conditional "Other" field with smooth animation */
-    .other-field{
-      max-height:0;
-      overflow:hidden;
-      opacity:0;
-      transition:all .35s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Donation type selector */
+    .donation-type{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-bottom:16px;
     }
-    .other-field.show{
-      max-height:100px;
-      opacity:1;
-      margin-top:4px;
+    .type-btn{
+      padding:14px;
+      border:2px solid #e5e7eb;
+      border-radius:12px;
+      background:#fafafa;
+      cursor:pointer;
+      transition:all .2s ease;
+      text-align:center;
+      font-weight:600;
+      font-size:14px;
+      color:var(--ink);
+    }
+    .type-btn:hover{
+      border-color:#d1d5db;
+      background:#fff;
+    }
+    .type-btn.active{
+      border-color:var(--accent);
+      background:#f0fdf4;
+      color:var(--accent);
+      box-shadow:0 0 0 3px rgba(0,179,152,.12);
     }
 
     /* ---------- BUTTONS ---------- */
@@ -623,7 +672,7 @@
       transform:none !important;
     }
 
-    /* Success message with checkmark animation */
+    /* Success message */
     .notice{
       margin:18px 0;
       background:var(--success);
@@ -664,7 +713,7 @@
       .notice svg{width:24px; height:24px}
     }
 
-    /* Loading spinner for submitting state */
+    /* Loading spinner */
     .spinner{
       width:16px;
       height:16px;
@@ -689,7 +738,7 @@
     }
     
     @media (min-width:1024px){
-      .statgrid{grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:14px}
+      .statgrid{grid-template-columns:repeat(3, 1fr); gap:14px}
     }
     
     .stat{
@@ -759,7 +808,7 @@
       animation: glowPulse 1s cubic-bezier(0.16, 1, 0.3, 1) 1;
     }
 
-    /* Progress bars with gradient fills */
+    /* Progress bars */
     .relbar{
       height:10px;
       background:#ecf5f0;
@@ -832,15 +881,12 @@
       color:#0f3d26;
       font-weight:700;
       font-size:15px;
-      display:flex;
-      align-items:center;
-      gap:8px;
       background:linear-gradient(135deg, #f0f9f4, #ffffff);
       border-bottom:1.5px solid #e6f0ea;
     }
     
     @media (min-width:768px){
-      .list h4{padding:16px 18px; font-size:16px; gap:10px}
+      .list h4{padding:16px 18px; font-size:16px}
     }
     
     .list ul{
@@ -854,8 +900,6 @@
       align-items:center;
       padding:12px 16px;
       border-bottom:1px solid #f0f4f2;
-      transition:background .2s ease;
-      animation: slideIn .3s cubic-bezier(0.16, 1, 0.3, 1) backwards;
       font-size:14px;
     }
     
@@ -863,15 +907,7 @@
       .list li{padding:14px 18px; font-size:15px}
     }
     
-    .list li:nth-child(1){animation-delay:.05s}
-    .list li:nth-child(2){animation-delay:.1s}
-    .list li:nth-child(3){animation-delay:.15s}
-    .list li:nth-child(4){animation-delay:.2s}
-    .list li:nth-child(5){animation-delay:.25s}
     .list li:last-child{border-bottom:none}
-    .list li:hover{
-      background:#f8fcfa;
-    }
     .list li strong{
       color:var(--unt-green);
       font-weight:700;
@@ -894,7 +930,7 @@
       .empty{padding:20px 18px; font-size:15px}
     }
 
-    /* Last updated timestamp */
+    /* Last updated */
     .last-updated{
       font-size:11px;
       color:var(--muted);
@@ -946,13 +982,16 @@
     .link:hover{
       color:#fff;
     }
+
+    /* Hide elements */
+    .hidden{display:none !important}
   </style>
 </head>
 <body>
   <div class="wrap">
     <!-- MASTHEAD -->
     <header class="masthead reveal">
-      <div class="brandmark" title="UNT Health Fort Worth College of Pharmacy Logo">
+      <div class="brandmark">
         <img src="unt_banner_nobg.webp" alt="UNT Health Fort Worth College of Pharmacy Logo" />
       </div>
       <div>
@@ -968,14 +1007,14 @@
       </div>
     </header>
 
-    <!-- HERO BANNER -->
-    <section class="hero reveal" aria-label="Donation Drive Hero">
+    <!-- HERO -->
+    <section class="hero reveal">
       <div class="hero-inner">
         <h2>Every Item Brings Hope to a Child at Cook Children's</h2>
-        <p>Right now, families are navigating some of the hardest days of their lives. Your donation—whether it's canned soup, baby formula, or even just a few items—helps provide comfort, dignity, and a reminder that their community cares.</p>
-        <div class="hero-impact">✨ Together, we've collected <strong id="heroCount">0 items</strong> so far</div>
+        <p>Support pediatric patients and their families during the holidays. Donate items or contribute financially—every $10 donated counts as 1 item toward our goal.</p>
+        <div class="hero-impact">Together, we've collected <strong id="heroCount">0 items</strong></div>
         <a href="#donationForm" class="cta">
-          <span>Add Your Donation</span>
+          <span>Contribute Now</span>
           <svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
         </a>
       </div>
@@ -985,44 +1024,49 @@
     <section class="impact-section reveal">
       <div class="impact-grid">
         <div class="impact-card">
-          <span class="impact-icon">🍽️</span>
-          <div class="impact-number">~<span id="mealsServed">0</span></div>
-          <div class="impact-label">Meals Provided</div>
+          <span class="impact-icon">📦</span>
+          <div class="impact-number"><span id="totalItemsImpact">0</span></div>
+          <div class="impact-label">Total Items Donated</div>
         </div>
         <div class="impact-card">
-          <span class="impact-icon">👨‍👩‍👧‍👦</span>
-          <div class="impact-number"><span id="familiesHelped">0</span>+</div>
-          <div class="impact-label">Families Helped</div>
-        </div>
-        <div class="impact-card">
-          <span class="impact-icon">🏥</span>
-          <div class="impact-number">100%</div>
-          <div class="impact-label">Goes to Cook's</div>
+          <span class="impact-icon">💵</span>
+          <div class="impact-number">$<span id="totalMoney">0</span></div>
+          <div class="impact-label">Total Dollars Raised</div>
+          <div class="dollar-visual">
+            <div class="dollar-visual-label">$10 = 1 Item Visual</div>
+            <div class="dollar-items" id="dollarItems">
+              <!-- Populated by JS -->
+            </div>
+          </div>
         </div>
         <div class="impact-card">
           <span class="impact-icon">💚</span>
-          <div class="impact-number"><span id="donorCount">0</span></div>
-          <div class="impact-label">Generous Donors</div>
+          <div class="impact-number"><span id="totalDonors">0</span></div>
+          <div class="impact-label">Contributors</div>
         </div>
       </div>
     </section>
 
-    <!-- MAIN CONTENT GRID -->
+    <!-- MAIN GRID -->
     <div class="shell">
       <!-- DONATION FORM -->
-      <section class="card reveal" id="donationForm" aria-label="Donation Form">
-        <h3>Submit Your Donation</h3>
+      <section class="card reveal" id="donationForm">
+        <h3>Submit Your Contribution</h3>
         
         <div class="notice" id="successNotice">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" stroke-dasharray="100" stroke-dashoffset="100" style="animation: checkmark 0.5s 0.2s ease-out forwards"/>
           </svg>
-          <span>Thank you! Your donation has been recorded!</span>
+          <span>Thank you! Your contribution has been recorded!</span>
         </div>
 
         <form id="theForm" novalidate>
-          <label for="name">Your Name <span class="required">*</span></label>
-          <input type="text" id="name" placeholder="John Doe" required autocomplete="name" />
+          <!-- Donation Type Selector -->
+          <label>Contribution Type <span class="required">*</span></label>
+          <div class="donation-type">
+            <div class="type-btn active" id="typeItem" onclick="selectType('item')">Item Donation</div>
+            <div class="type-btn" id="typeMoney" onclick="selectType('money')">Monetary ($10 = 1 item)</div>
+          </div>
 
           <label for="email">Email Address <span class="required">*</span></label>
           <input type="email" id="email" placeholder="john.doe@example.com" required autocomplete="email" />
@@ -1036,84 +1080,30 @@
                   <option value="P1">P1 - Class of 2029</option>
                   <option value="P2">P2 - Class of 2028</option>
                   <option value="P3">P3 - Class of 2027</option>
-                  <option value="P4">P4 - Class of 2026</option>
                 </optgroup>
                 <optgroup label="Staff & Community">
                   <option value="Faculty/Staff">Faculty / Staff</option>
-                  <option value="Organization">Organization / Business</option>
-                  <option value="Community Donor">Community Member</option>
+                  <option value="Sponsor">Sponsor / Organization</option>
                 </optgroup>
               </select>
             </div>
-            <div>
+            <div id="qtyField">
               <label for="qty">Quantity <span class="required">*</span></label>
               <input type="number" id="qty" min="1" placeholder="5" required />
             </div>
+            <div id="dollarField" class="hidden">
+              <label for="dollarAmount">Dollar Amount <span class="required">*</span>
+                <span class="helper">$10 = 1 item</span>
+              </label>
+              <input type="number" id="dollarAmount" min="10" step="10" placeholder="50" />
+            </div>
           </div>
 
-          <label for="itemType">What are you donating? <span class="required">*</span></label>
-          <select id="itemType" required>
-            <option value="">Choose a category...</option>
-            <optgroup label="Canned Goods">
-              <option value="Canned Soup">Canned Soup</option>
-              <option value="Canned Vegetables">Canned Vegetables</option>
-              <option value="Canned Fruit">Canned Fruit</option>
-              <option value="Canned Meat">Canned Meat (Tuna, Chicken)</option>
-              <option value="Canned Beans">Canned Beans</option>
-              <option value="Tomato Products">Tomato Products</option>
-            </optgroup>
-            <optgroup label="Dry Goods & Grains">
-              <option value="Pasta">Pasta</option>
-              <option value="Rice">Rice</option>
-              <option value="Oatmeal">Oatmeal</option>
-              <option value="Cereal">Breakfast Cereal</option>
-              <option value="Crackers">Crackers</option>
-              <option value="Pancake Mix">Pancake Mix</option>
-            </optgroup>
-            <optgroup label="Proteins & Spreads">
-              <option value="Peanut Butter">Peanut Butter</option>
-              <option value="Nut Butters">Other Nut Butters</option>
-              <option value="Dried Beans">Dried Beans / Lentils</option>
-              <option value="Nuts">Nuts / Trail Mix</option>
-            </optgroup>
-            <optgroup label="Quick Meals">
-              <option value="Mac & Cheese">Mac & Cheese</option>
-              <option value="Instant Meals">Instant Meals (Ramen, Cup Noodles)</option>
-              <option value="Pasta Sauce">Pasta Sauce</option>
-              <option value="Soup Mixes">Soup Mixes</option>
-              <option value="Boxed Meals">Boxed Meal Kits</option>
-            </optgroup>
-            <optgroup label="Snacks">
-              <option value="Granola Bars">Granola Bars</option>
-              <option value="Cookies">Cookies / Crackers</option>
-              <option value="Popcorn">Popcorn</option>
-              <option value="Dried Fruit">Dried Fruit</option>
-            </optgroup>
-            <optgroup label="Beverages">
-              <option value="Juice Boxes">Juice Boxes</option>
-              <option value="Powdered Drinks">Powdered Drinks</option>
-              <option value="Coffee/Tea">Coffee / Tea</option>
-              <option value="Bottled Water">Bottled Water</option>
-            </optgroup>
-            <optgroup label="Baby & Kids">
-              <option value="Baby Food">Baby Food</option>
-              <option value="Baby Formula">Baby Formula</option>
-              <option value="Diapers">Diapers / Wipes</option>
-              <option value="Kids Snacks">Kids' Snacks</option>
-            </optgroup>
-            <optgroup label="Personal Care">
-              <option value="Toiletries">Toiletries (Soap, Shampoo, Toothpaste)</option>
-              <option value="Feminine Products">Feminine Hygiene Products</option>
-              <option value="Cleaning Supplies">Cleaning Supplies</option>
-              <option value="Pet Food">Pet Food</option>
-            </optgroup>
-            <option value="Other">Other (Please Specify)</option>
-          </select>
-
-          <!-- Conditional "Other" field -->
-          <div class="other-field" id="otherField">
-            <label for="otherItem">Please specify <span class="required">*</span></label>
-            <input type="text" id="otherItem" placeholder="e.g., Baking supplies, condiments" />
+          <div id="itemField">
+            <label for="itemType">What are you donating? <span class="required">*</span>
+              <span class="helper">Examples: Canned soup, diapers, baby formula, hygiene products, toys</span>
+            </label>
+            <textarea id="itemType" placeholder="Please describe what you're donating..." rows="3"></textarea>
           </div>
 
           <label for="note">Add a note of encouragement (optional)</label>
@@ -1122,17 +1112,16 @@
           <div class="actions">
             <button type="submit" class="btn" id="submitBtn">
               <svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              <span>Submit Donation</span>
+              <span>Submit Contribution</span>
             </button>
           </div>
         </form>
       </section>
 
-      <!-- LIVE DASHBOARD -->
-      <section class="card reveal" aria-label="Live Dashboard">
-        <h3>See Our Collective Impact</h3>
+      <!-- DASHBOARD -->
+      <section class="card reveal">
+        <h3>Class Competition</h3>
         
-        <!-- Class competition -->
         <div class="statgrid">
           <div class="stat">
             <div class="k">Class of 2029</div>
@@ -1152,12 +1141,9 @@
             <div class="relbar"><span id="p3Rel"></span></div>
             <div class="rel-label"><span>Relative</span><span id="p3RelPct">0%</span></div>
           </div>
-          <div class="stat">
-            <div class="k">Class of 2026</div>
-            <div class="v counter" id="p4Count">0</div>
-            <div class="relbar"><span id="p4Rel"></span></div>
-            <div class="rel-label"><span>Relative</span><span id="p4RelPct">0%</span></div>
-          </div>
+        </div>
+
+        <div class="statgrid" style="margin-top:12px">
           <div class="stat">
             <div class="k">Faculty</div>
             <div class="v counter" id="fsCount">0</div>
@@ -1165,36 +1151,16 @@
             <div class="rel-label"><span>Relative</span><span id="fsRelPct">0%</span></div>
           </div>
           <div class="stat">
-            <div class="k">Sponsors</div>
-            <div class="v counter" id="orgCount">0</div>
-            <div class="relbar"><span id="orgRel"></span></div>
-            <div class="rel-label"><span>Relative</span><span id="orgRelPct">0%</span></div>
+            <div class="k">Sponsor Dollars</div>
+            <div class="v">$<span id="sponsorDollars">0</span></div>
           </div>
           <div class="stat">
-            <div class="k">Community</div>
-            <div class="v counter" id="commCount">0</div>
-            <div class="relbar"><span id="commRel"></span></div>
-            <div class="rel-label"><span>Relative</span><span id="commRelPct">0%</span></div>
+            <div class="k">Community Dollars</div>
+            <div class="v">$<span id="communityDollars">0</span></div>
           </div>
         </div>
 
-        <!-- Overall totals -->
-        <div class="statgrid" style="margin-top:12px; grid-template-columns:repeat(3,1fr)">
-          <div class="stat">
-            <div class="k">Total Items</div>
-            <div class="v counter" id="totalItems">0</div>
-          </div>
-          <div class="stat">
-            <div class="k">Total Donors</div>
-            <div class="v counter" id="totalDonors">0</div>
-          </div>
-          <div class="stat">
-            <div class="k">Avg / Donor</div>
-            <div class="v" id="avgPer">0</div>
-          </div>
-        </div>
-
-        <!-- Recent donations -->
+        <!-- Recent -->
         <div class="lists">
           <div class="list">
             <h4>Recent Contributions</h4>
@@ -1222,11 +1188,26 @@
     const $$ = sel => document.querySelectorAll(sel);
 
     let refreshTimer = null;
+    let donationType = 'item';
 
-    function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, m => ({
-        '&': '&amp;','<': '&lt;','>': '&gt;','"': '&quot;','\'': '&#39;'
-      }[m]));
+    function selectType(type) {
+      donationType = type;
+      $('#typeItem').classList.toggle('active', type === 'item');
+      $('#typeMoney').classList.toggle('active', type === 'money');
+      
+      $('#itemField').classList.toggle('hidden', type === 'money');
+      $('#qtyField').classList.toggle('hidden', type === 'money');
+      $('#dollarField').classList.toggle('hidden', type === 'item');
+      
+      if (type === 'item') {
+        $('#itemType').setAttribute('required', 'required');
+        $('#qty').setAttribute('required', 'required');
+        $('#dollarAmount').removeAttribute('required');
+      } else {
+        $('#itemType').removeAttribute('required');
+        $('#qty').removeAttribute('required');
+        $('#dollarAmount').setAttribute('required', 'required');
+      }
     }
 
     function animateCount(el, target) {
@@ -1262,6 +1243,27 @@
       $('#lastUpdated').textContent = `Last updated: ${timeStr}`;
     }
 
+    function renderDollarVisual(totalDollars) {
+      const container = $('#dollarItems');
+      const itemsFromDollars = Math.floor(totalDollars / 10);
+      const maxDisplay = 50; // Show max 50 boxes
+      const toShow = Math.min(itemsFromDollars, maxDisplay);
+      
+      container.innerHTML = '';
+      for (let i = 0; i < toShow; i++) {
+        const box = document.createElement('div');
+        box.className = 'dollar-item filled';
+        container.appendChild(box);
+      }
+      
+      if (itemsFromDollars > maxDisplay) {
+        const label = document.createElement('div');
+        label.style.cssText = 'font-size:11px; font-weight:600; margin-top:4px; opacity:0.85';
+        label.textContent = `+${itemsFromDollars - maxDisplay} more items from donations`;
+        container.appendChild(label);
+      }
+    }
+
     async function loadStats() {
       try {
         const response = await fetch(SCRIPT_URL);
@@ -1277,17 +1279,19 @@
     function renderStats(stats) {
       const buckets = stats.classCounts || {};
       
+      // Calculate sponsor/community dollars (new logic needed in Apps Script)
+      const sponsorDollars = stats.sponsorDollars || 0;
+      const communityDollars = stats.communityDollars || 0;
+      const totalMoney = sponsorDollars + communityDollars;
+      
       const map = [
         ['#p1Count', buckets['P1'] || 0, '#p1Rel', '#p1RelPct'],
         ['#p2Count', buckets['P2'] || 0, '#p2Rel', '#p2RelPct'],
         ['#p3Count', buckets['P3'] || 0, '#p3Rel', '#p3RelPct'],
-        ['#p4Count', buckets['P4'] || 0, '#p4Rel', '#p4RelPct'],
-        ['#fsCount', buckets['Faculty/Staff'] || 0, '#fsRel', '#fsRelPct'],
-        ['#orgCount', buckets['Organization'] || 0, '#orgRel', '#orgRelPct'],
-        ['#commCount', buckets['Community Donor'] || 0, '#commRel', '#commRelPct']
+        ['#fsCount', buckets['Faculty/Staff'] || 0, '#fsRel', '#fsRelPct']
       ];
 
-      const maxVal = Math.max(1, ...Object.values(buckets));
+      const maxVal = Math.max(1, buckets['P1'] || 0, buckets['P2'] || 0, buckets['P3'] || 0, buckets['Faculty/Staff'] || 0);
 
       for (const [countSel, val, barSel, pctSel] of map) {
         const el = $(countSel);
@@ -1310,36 +1314,27 @@
         }
       }
 
-      animateCount($('#totalItems'), stats.totalItems || 0);
-      markUpdated($('#totalItems').closest('.stat'));
+      animateCount($('#totalItemsImpact'), stats.totalItems || 0);
+      animateCount($('#totalMoney'), totalMoney);
       animateCount($('#totalDonors'), stats.totalDonors || 0);
-      markUpdated($('#totalDonors').closest('.stat'));
+      animateCount($('#sponsorDollars'), sponsorDollars);
+      animateCount($('#communityDollars'), communityDollars);
       
-      const avgPer = stats.totalDonors ? (stats.totalItems / stats.totalDonors).toFixed(1) : '0';
-      $('#avgPer').textContent = avgPer;
-
-      // Update hero count
       $('#heroCount').textContent = stats.totalItems || 0;
       
-      // Update impact metrics
-      const meals = Math.floor((stats.totalItems || 0) * 3); // Assume 3 meals per item
-      animateCount($('#mealsServed'), meals);
-      
-      const families = Math.floor((stats.totalItems || 0) / 10); // Assume 10 items per family
-      animateCount($('#familiesHelped'), families);
-      
-      animateCount($('#donorCount'), stats.totalDonors || 0);
+      renderDollarVisual(totalMoney);
 
       const ul = $('#recentDonations');
       ul.innerHTML = '';
       
       if (!stats.recentDonations || stats.recentDonations.length === 0) {
-        ul.innerHTML = '<li class="empty">No donations yet. Be the first!</li>';
+        ul.innerHTML = '<li class="empty">No contributions yet. Be the first!</li>';
       } else {
-        for (const d of stats.recentDonations) {
+        const recent = stats.recentDonations.slice(0, 3); // Max 3
+        for (const d of recent) {
           const li = document.createElement('li');
           li.innerHTML = `
-            <span>${escapeHtml(d.name)} • ${escapeHtml(d.item)}</span>
+            <span>${d.item}</span>
             <strong>${Number(d.quantity) || 0}</strong>
           `;
           ul.appendChild(li);
@@ -1363,25 +1358,15 @@
       e.preventDefault();
       
       const submitBtn = $('#submitBtn');
-      const name = $('#name').value.trim();
       const email = $('#email').value.trim();
       const classYear = $('#classYear').value;
-      const itemType = $('#itemType').value;
-      const qty = Number($('#qty').value);
       const note = $('#note').value.trim();
       
-      $$('input, select').forEach(el => {
+      $$('input, select, textarea').forEach(el => {
         el.classList.remove('error', 'success');
       });
 
       let isValid = true;
-      
-      if (!name) {
-        $('#name').classList.add('error');
-        isValid = false;
-      } else {
-        $('#name').classList.add('success');
-      }
       
       if (!email || !validateEmail(email)) {
         $('#email').classList.add('error');
@@ -1396,30 +1381,37 @@
       } else {
         $('#classYear').classList.add('success');
       }
-      
-      if (!itemType) {
-        $('#itemType').classList.add('error');
-        isValid = false;
-      } else {
-        $('#itemType').classList.add('success');
-      }
-      
-      if (!qty || qty < 1) {
-        $('#qty').classList.add('error');
-        isValid = false;
-      } else {
-        $('#qty').classList.add('success');
-      }
 
-      let finalItemType = itemType;
-      if (itemType === 'Other') {
-        const otherItem = $('#otherItem').value.trim();
-        if (!otherItem) {
-          $('#otherItem').classList.add('error');
+      let itemType, qty, dollarAmount;
+      
+      if (donationType === 'item') {
+        itemType = $('#itemType').value.trim();
+        qty = Number($('#qty').value);
+        
+        if (!itemType) {
+          $('#itemType').classList.add('error');
           isValid = false;
         } else {
-          $('#otherItem').classList.add('success');
-          finalItemType = `Other: ${otherItem}`;
+          $('#itemType').classList.add('success');
+        }
+        
+        if (!qty || qty < 1) {
+          $('#qty').classList.add('error');
+          isValid = false;
+        } else {
+          $('#qty').classList.add('success');
+        }
+      } else {
+        dollarAmount = Number($('#dollarAmount').value);
+        
+        if (!dollarAmount || dollarAmount < 10 || dollarAmount % 10 !== 0) {
+          $('#dollarAmount').classList.add('error');
+          alert('Dollar amount must be at least $10 and in increments of $10.');
+          isValid = false;
+        } else {
+          $('#dollarAmount').classList.add('success');
+          qty = dollarAmount / 10;
+          itemType = `Monetary Contribution ($${dollarAmount})`;
         }
       }
       
@@ -1432,16 +1424,27 @@
       submitBtn.innerHTML = '<div class="spinner"></div><span>Submitting...</span>';
 
       try {
+        const payload = {
+          name: 'Anonymous', // No names per request
+          email,
+          classYear,
+          itemType,
+          qty,
+          dollarAmount: dollarAmount || 0,
+          note,
+          donationType
+        };
+
         const response = await fetch(SCRIPT_URL, {
           method: 'POST',
-          body: JSON.stringify({ name, email, classYear, itemType: finalItemType, qty, note })
+          body: JSON.stringify(payload)
         });
         
         const result = await response.json();
         
         if (result.success) {
           e.target.reset();
-          $('#otherField').classList.remove('show');
+          selectType('item'); // Reset to item type
           showSuccess();
           
           if (result.stats) {
@@ -1454,31 +1457,18 @@
           throw new Error(result.error || 'Submission failed');
         }
       } catch (error) {
-        console.error('Error submitting donation:', error);
-        alert('There was an error submitting your donation. Please try again.');
+        console.error('Error submitting:', error);
+        alert('There was an error submitting your contribution. Please try again.');
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = `
           <svg style="width:18px;height:18px" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
           </svg>
-          <span>Submit Donation</span>
+          <span>Submit Contribution</span>
         `;
       }
     }
-
-    $('#itemType').addEventListener('change', function() {
-      const otherField = $('#otherField');
-      if (this.value === 'Other') {
-        otherField.classList.add('show');
-        $('#otherItem').setAttribute('required', 'required');
-      } else {
-        otherField.classList.remove('show');
-        $('#otherItem').removeAttribute('required');
-        $('#otherItem').value = '';
-        $('#otherItem').classList.remove('error', 'success');
-      }
-    });
 
     function startAutoRefresh() {
       if (refreshTimer) clearInterval(refreshTimer);
